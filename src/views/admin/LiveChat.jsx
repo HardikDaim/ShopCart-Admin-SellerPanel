@@ -4,7 +4,7 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
 import { get_admin_message, get_sellers, messageClear, send_message_seller_admin, updateSellerMessage } from "../../store/reducers/chatReducer";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { socket } from "../../utils/utils";
+// import { socket } from "../../utils/utils";
 import { toast } from "react-hot-toast";
 import LoaderOverlay from '../../components/LoaderOverlay';
 
@@ -27,18 +27,18 @@ const LiveChat = () => {
   }, [dispatch]);
 
 
-  useEffect(() => {
-    if (successMessage) {
-      socket.emit("send_message_admin_to_seller", seller_admin_message[seller_admin_message.length - 1]); 
-      dispatch(messageClear());
-    }
-  }, [dispatch, successMessage]);
+  // useEffect(() => {
+  //   if (successMessage) {
+  //     socket.emit("send_message_admin_to_seller", seller_admin_message[seller_admin_message.length - 1]); 
+  //     dispatch(messageClear());
+  //   }
+  // }, [dispatch, successMessage]);
 
-  useEffect(() => {
-    socket.on("received_seller_message", msg => {
-      setReceiverMessage(msg);
-    })
-  }, [])
+  // useEffect(() => {
+  //   socket.on("received_seller_message", msg => {
+  //     setReceiverMessage(msg);
+  //   })
+  // }, [])
 
 
   useEffect(() => {

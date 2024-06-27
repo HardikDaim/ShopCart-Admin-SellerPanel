@@ -10,7 +10,7 @@ import {
   updateMessage,
 } from "../../store/reducers/chatReducer";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { socket } from "../../utils/utils";
+// import { socket } from "../../utils/utils";
 import { toast } from "react-hot-toast";
 
 const SellerToCustomer = () => {
@@ -37,21 +37,21 @@ const SellerToCustomer = () => {
     }
   }, [customerId, dispatch]);
 
-  useEffect(() => {
-    if (successMessage) {
-      socket.emit("send_seller_message", messages[messages.length - 1]); // last message
-      dispatch(messageClear());
-    }
-  }, [dispatch, successMessage]);
+  // useEffect(() => {
+  //   if (successMessage) {
+  //     socket.emit("send_seller_message", messages[messages.length - 1]); // last message
+  //     dispatch(messageClear());
+  //   }
+  // }, [dispatch, successMessage]);
 
-  useEffect(() => {
-    socket.on("customer_message", (msg) => {
-      setReceiverMessage(msg);
-    });
-    socket.on("activeCustomer", (customers) => {
-      setActiveCustomer(customers);
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.on("customer_message", (msg) => {
+  //     setReceiverMessage(msg);
+  //   });
+  //   socket.on("activeCustomer", (customers) => {
+  //     setActiveCustomer(customers);
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (receiverMessage) {
