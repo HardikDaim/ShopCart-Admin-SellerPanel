@@ -202,7 +202,7 @@ const AddProduct = () => {
                     placeholder="Select Category"
                     required
                   />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <div className="absolute  inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     {catShow ? (
                       <FiChevronUp className="text-gray-700" />
                     ) : (
@@ -211,7 +211,7 @@ const AddProduct = () => {
                   </div>
                 </div>
                 <div
-                  className={`absolute top-[101%] bg-white border-2 w-full transition-all ${
+                  className={`absolute z-10 top-[101%] bg-white border-2 w-full transition-all ${
                     catShow ? "scale-100" : "scale-0"
                   }`}
                 >

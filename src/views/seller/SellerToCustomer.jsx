@@ -53,19 +53,19 @@ const SellerToCustomer = () => {
   //   });
   // }, []);
 
-  useEffect(() => {
-    if (receiverMessage) {
-      if (
-        customerId === receiverMessage.senderId &&
-        userInfo._id === receiverMessage.receiverId
-      ) {
-        dispatch(updateMessage(receiverMessage));
-      } else {
-        toast.success(receiverMessage.senderName + " " + "Send a message");
-        dispatch(messageClear());
-      }
-    }
-  }, [receiverMessage]);
+  // useEffect(() => {
+  //   if (receiverMessage) {
+  //     if (
+  //       customerId === receiverMessage.senderId &&
+  //       userInfo._id === receiverMessage.receiverId
+  //     ) {
+  //       dispatch(updateMessage(receiverMessage));
+  //     } else {
+  //       toast.success(receiverMessage.senderName + " " + "Send a message");
+  //       dispatch(messageClear());
+  //     }
+  //   }
+  // }, [receiverMessage]);
 
   const send = (e) => {
     e.preventDefault();
@@ -127,11 +127,11 @@ const SellerToCustomer = () => {
                           src="/images/user.png"
                           alt={f.name}
                         />
-                        {activeCustomer.some(
+                        {/* {activeCustomer.some(
                           (c) => c.customerId === f.fdId
                         ) && (
                           <div className="w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0"></div>
-                        )}
+                        )} */}
                       </div>
                       <div className="flex justify-between items-center w-full">
                         <h2 className="font-semibold text-slate-900 dark:text-slate-50">
@@ -158,11 +158,11 @@ const SellerToCustomer = () => {
                       src="/images/user.png"
                       alt="Customer"
                     />
-                    {activeCustomer.some(
+                    {/* {activeCustomer.some(
                           (c) => c.customerId === currentCustomer._id
                         ) && (
                           <div className="w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0"></div>
-                        )}
+                        )} */}
                   </div>
                   <h2 className="font-semibold text-slate-900 dark:text-slate-50">
                     {currentCustomer?.name}

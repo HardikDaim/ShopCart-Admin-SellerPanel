@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { IoPerson } from "react-icons/io5";
 const Header = ({ showSidebar, toggleSidebar }) => {
   const { userInfo, role } = useSelector((state) => state.auth);
-  
+
   return (
     <div className="fixed top-0 left-0 w-full bg-gray-50 py-1.5 px-2 lg:px-7 z-40">
       <div className="ml-0 lg:ml-[260px] transition-all">
@@ -74,19 +74,21 @@ const Header = ({ showSidebar, toggleSidebar }) => {
               )}
               <span className="text-sm">{role}</span>
             </div>
-            {userInfo?.role === 'admin' ? 
-               <img
-               className="h-14 w-14 rounded-full overflow-hidden"
-               src="/images/admin.jpg"
-             />
-          :
-          
-          <img
-            className="h-14 w-14 rounded-full overflow-hidden"
-            src={userInfo?.image}
-          />
-          
-          }
+            {userInfo?.role === "admin" ? (
+              <img
+                className="h-14 w-14 rounded-full overflow-hidden"
+                src="/images/admin.jpg"
+              />
+            ) : userInfo?.image ? (
+              <img
+                className="h-14 w-14 rounded-full overflow-hidden"
+                src={userInfo?.image}
+              />
+            ) : (
+              <div className="flex items-center justify-center text-2xl md:text-4xl ">
+                <IoPerson />
+              </div>
+            )}
           </div>
         </div>
       </div>

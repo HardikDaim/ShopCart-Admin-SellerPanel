@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../api/api";
-import { jwtDecode} from "jwt-decode";  // Correct import
+import { jwtDecode} from "jwt-decode";  
 
 // Thunks
 export const admin_login = createAsyncThunk(
@@ -102,7 +102,6 @@ export const add_profile_info = createAsyncThunk(
       const { data } = await api.post("/add-profile-info", info, {
         withCredentials: true,
       });
-      console.log(data)
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response?.data);
@@ -151,14 +150,14 @@ const authReducer = createSlice({
       })
       .addCase(admin_login.fulfilled, (state, action) => {
         state.loader = false;
-        state.successMessage = action.payload.message;
-        state.token = action.payload.token;
-        state.role = returnRole(action.payload.token);
-        state.userInfo = action.payload.userInfo; // Ensure userInfo is set
+        state.successMessage = action.payload?.message;
+        state.token = action.payload?.token;
+        state.role = returnRole(action.payload?.token);
+        state.userInfo = action.payload?.userInfo; 
       })
       .addCase(admin_login.rejected, (state, action) => {
         state.loader = false;
-        state.errorMessage = action.payload.error;
+        state.errorMessage = action.payload?.error;
       })
       .addCase(seller_register.pending, (state) => {
         state.loader = true;
@@ -167,14 +166,14 @@ const authReducer = createSlice({
       })
       .addCase(seller_register.fulfilled, (state, action) => {
         state.loader = false;
-        state.successMessage = action.payload.message;
-        state.token = action.payload.token;
-        state.role = returnRole(action.payload.token);
-        state.userInfo = action.payload.userInfo; // Ensure userInfo is set
+        state.successMessage = action.payload?.message;
+        state.token = action.payload?.token;
+        state.role = returnRole(action.payload?.token);
+        state.userInfo = action.payload?.userInfo; 
       })
       .addCase(seller_register.rejected, (state, action) => {
         state.loader = false;
-        state.errorMessage = action.payload.error;
+        state.errorMessage = action.payload?.error;
       })
       .addCase(seller_login.pending, (state) => {
         state.loader = true;
@@ -183,14 +182,14 @@ const authReducer = createSlice({
       })
       .addCase(seller_login.fulfilled, (state, action) => {
         state.loader = false;
-        state.successMessage = action.payload.message;
-        state.token = action.payload.token;
-        state.role = returnRole(action.payload.token);
-        state.userInfo = action.payload.userInfo;
+        state.successMessage = action.payload?.message;
+        state.token = action.payload?.token;
+        state.role = returnRole(action.payload?.token);
+        state.userInfo = action.payload?.userInfo;
       })
       .addCase(seller_login.rejected, (state, action) => {
         state.loader = false;
-        state.errorMessage = action.payload.error;
+        state.errorMessage = action.payload?.error;
       })
       .addCase(get_user_info.pending, (state) => {
         state.loader = true;
@@ -212,8 +211,8 @@ const authReducer = createSlice({
       })
       .addCase(profile_image_upload.fulfilled, (state, action) => {
         state.loader = false;
-        state.successMessage = action.payload.message;
-        state.userInfo = action.payload.userInfo;
+        state.successMessage = action.payload?.message;
+        state.userInfo = action.payload?.userInfo;
       })
       .addCase(profile_image_upload.rejected, (state, action) => {
         state.loader = false;
@@ -226,7 +225,7 @@ const authReducer = createSlice({
       })
       .addCase(add_profile_info.fulfilled, (state, action) => {
         state.loader = false;
-        state.successMessage = action.payload.message;
+        state.successMessage = action.payload?.message;
         state.userInfo = action.payload?.userInfo;
       })
       .addCase(add_profile_info.rejected, (state, action) => {

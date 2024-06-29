@@ -41,19 +41,19 @@ const LiveChat = () => {
   // }, [])
 
 
-  useEffect(() => {
-    if (receiverMessage) {
-      if (
-        receiverMessage.senderId === sellerId &&
-        receiverMessage.receiverId === ''
-      ) {
-        dispatch(updateSellerMessage(receiverMessage));
-      } else {
-        toast.success(receiverMessage.senderName + " " + "Send a message");
-        dispatch(messageClear());
-      }
-    }
-  }, [receiverMessage]);
+  // useEffect(() => {
+  //   if (receiverMessage) {
+  //     if (
+  //       receiverMessage.senderId === sellerId &&
+  //       receiverMessage.receiverId === ''
+  //     ) {
+  //       dispatch(updateSellerMessage(receiverMessage));
+  //     } else {
+  //       toast.success(receiverMessage.senderName + " " + "Send a message");
+  //       dispatch(messageClear());
+  //     }
+  //   }
+  // }, [receiverMessage]);
 
   
   const send = (e) => {
@@ -118,9 +118,9 @@ const LiveChat = () => {
                         alt={f.name}
                       />
 
-                      {activeSeller.some((c) => c.sellerId === f._id) && (
+                      {/* {activeSeller.some((c) => c.sellerId === f._id) && (
                         <div className="w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0"></div>
-                      )}
+                      )} */}
                     </div>
                     <div className="flex justify-between items-center w-full">
                       <h2 className="font-semibold text-slate-900 dark:text-slate-50">
@@ -146,11 +146,11 @@ const LiveChat = () => {
                     className="w-[38px] h-[38px] border-2 max-w-[38px] p-[2px] rounded-full"
                     src={currentSeller?.image}
                   />
-                  {activeSeller.some(
+                  {/* {activeSeller.some(
                     (c) => c.sellerId === currentSeller._id
                   ) && (
                     <div className="w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0"></div>
-                  )}
+                  )} */}
                 </div>
                 <h2 className="font-semibold text-slate-900 dark:text-slate-50">
                   {currentSeller?.name}

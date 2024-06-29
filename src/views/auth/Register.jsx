@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import LoaderOverlay from "../../components/LoaderOverlay"; 
-import { messageClear, seller_register } from "../../store/reducers/authReducer";
-import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from "react-redux";
+import LoaderOverlay from "../../components/LoaderOverlay";
+import {
+  messageClear,
+  seller_register,
+} from "../../store/reducers/authReducer";
+import toast from "react-hot-toast";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {errorMessage, successMessage, loader } = useSelector((state) => state.auth);
+  const { errorMessage, successMessage, loader } = useSelector(
+    (state) => state.auth
+  );
   const [state, setState] = useState({ name: "", email: "", password: "" });
+  const [showPassword, ssetShowPassword] = useState(false);
 
   const handleInput = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -18,25 +25,23 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(seller_register(state));
-
   };
 
   useEffect(() => {
-    if(errorMessage) {
+    if (errorMessage) {
       toast.error(errorMessage);
       dispatch(messageClear());
     }
-    if(successMessage) {
+    if (successMessage) {
       toast.success(successMessage);
       dispatch(messageClear());
-      navigate('/');
+      navigate("/");
     }
-  }, [errorMessage,successMessage, dispatch, navigate]);
+  }, [errorMessage, successMessage, dispatch, navigate]);
 
   return (
-
     <div className="flex min-h-screen min-w-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
-       {loader && <LoaderOverlay />} 
+      {loader && <LoaderOverlay />}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           className="mx-auto  w-auto"
@@ -95,16 +100,22 @@ const Register = () => {
             >
               Password
             </label>
-            <div className="mt-2">
+            <div className="mt-2 relative">
               <input
                 name="password"
-                type="password"
+                type={showPassword ? "text" : 'password'}
                 id="password"
                 onChange={handleInput}
                 value={state.password}
                 required
                 className="block w-full rounded-md border-0 p-1.5 caret-indigo-500 outline-none text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
+              <div
+                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                onClick={() => ssetShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
             </div>
           </div>
           <div className="mt-2">
@@ -119,7 +130,7 @@ const Register = () => {
             </label>
           </div>
           <div>
-          <button
+            <button
               type="submit"
               className="transition w-full flex justify-center duration-500 outline-none ease-in-out text-white font-semibold rounded-md leading-6 shadow-sm bg-indigo-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-3 py-1.5"
               disabled={loader}

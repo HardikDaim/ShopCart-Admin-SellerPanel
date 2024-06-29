@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LoaderOverlay from "../../components/LoaderOverlay";
 import { messageClear, seller_login } from "../../store/reducers/authReducer";
 import toast from "react-hot-toast";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Login = () => {
     (state) => state.auth
   );
   const [state, setState] = useState({ email: "", password: "" });
-
+  const [showPassword, ssetShowPassword] = useState(false);
   const handleInput = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
@@ -76,16 +77,22 @@ const Login = () => {
             >
               Password
             </label>
-            <div className="mt-2">
+            <div className="mt-2 relative">
               <input
                 name="password"
-                type="password"
+                type={showPassword ? 'text': 'password'}
                 id="password"
                 onChange={handleInput}
                 value={state.password}
                 required
                 className="block w-full transition duration-150 ease-in-out rounded-md border-0 p-1.5 caret-indigo-500 outline-none text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
+              <div
+                className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                onClick={(() => ssetShowPassword(!showPassword))}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
             </div>
           </div>
           <div>
@@ -98,7 +105,10 @@ const Login = () => {
             </button>
             <p className="block text-sm font-medium leading-6 text-gray-900 py-2">
               Don't have an account?
-              <Link to="/register" className="font-semibold text-indigo-600 ml-1">
+              <Link
+                to="/register"
+                className="font-semibold text-indigo-600 ml-1"
+              >
                 Register now
               </Link>
             </p>
