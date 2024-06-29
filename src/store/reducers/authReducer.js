@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../api/api";
-import { jwtDecode} from "jwt-decode";  
+import { jwtDecode } from "jwt-decode";
 
 // Thunks
 export const admin_login = createAsyncThunk(
@@ -50,16 +50,16 @@ export const seller_login = createAsyncThunk(
 
 export const logout = createAsyncThunk(
   "auth/logout",
-  async ({navigate, role}, { rejectWithValue, fulfillWithValue }) => {
+  async ({ navigate, role }, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.get("/logout", {
         withCredentials: true,
       });
       localStorage.removeItem("accessToken", data.token);
-      if (role === 'admin') {
-        navigate('/admin/login')
+      if (role === "admin") {
+        navigate("/admin/login");
       } else {
-        navigate('/login')
+        navigate("/login");
       }
       return fulfillWithValue(data);
     } catch (error) {
@@ -84,7 +84,7 @@ export const get_user_info = createAsyncThunk(
 
 export const profile_image_upload = createAsyncThunk(
   "auth/profile_image_upload",
-  async ( image, { rejectWithValue, fulfillWithValue }) => {
+  async (image, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.post("/profile-image-upload", image, {
         withCredentials: true,
@@ -97,7 +97,7 @@ export const profile_image_upload = createAsyncThunk(
 );
 export const add_profile_info = createAsyncThunk(
   "auth/add_profile_info",
-  async ( info, { rejectWithValue, fulfillWithValue }) => {
+  async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.post("/add-profile-info", info, {
         withCredentials: true,
@@ -153,7 +153,7 @@ const authReducer = createSlice({
         state.successMessage = action.payload?.message;
         state.token = action.payload?.token;
         state.role = returnRole(action.payload?.token);
-        state.userInfo = action.payload?.userInfo; 
+        state.userInfo = action.payload?.userInfo;
       })
       .addCase(admin_login.rejected, (state, action) => {
         state.loader = false;
@@ -169,7 +169,7 @@ const authReducer = createSlice({
         state.successMessage = action.payload?.message;
         state.token = action.payload?.token;
         state.role = returnRole(action.payload?.token);
-        state.userInfo = action.payload?.userInfo; 
+        state.userInfo = action.payload?.userInfo;
       })
       .addCase(seller_register.rejected, (state, action) => {
         state.loader = false;
@@ -198,7 +198,7 @@ const authReducer = createSlice({
       })
       .addCase(get_user_info.fulfilled, (state, action) => {
         state.loader = false;
-        state.userInfo = action.payload?.userInfo; 
+        state.userInfo = action.payload?.userInfo;
       })
       .addCase(get_user_info.rejected, (state, action) => {
         state.loader = false;
@@ -231,7 +231,7 @@ const authReducer = createSlice({
       .addCase(add_profile_info.rejected, (state, action) => {
         state.loader = false;
         state.errorMessage = action.payload?.error;
-      })
+      });
   },
 });
 
