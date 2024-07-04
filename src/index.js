@@ -14,7 +14,7 @@ root.render(
     <Provider store={store}>
       <Suspense>
         <App />
-        <Toaster position="top-center" />
+        {/* <Toaster position="top-center" /> */}
       </Suspense>
     </Provider>
   </BrowserRouter>

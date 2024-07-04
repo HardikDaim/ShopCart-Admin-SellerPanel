@@ -107,7 +107,6 @@ const AddProduct = () => {
     setAllCategory(categories);
   }, [categories]);
 
-
   useEffect(() => {
     if (errorMessage) {
       toast.error(errorMessage);
@@ -133,22 +132,22 @@ const AddProduct = () => {
   return (
     <div className="px-2 lg:px-7 py-5">
       {loader && <LoaderOverlay />}
-      <div className="w-full p-4 bg-gray-100 border-2 rounded-md">
+      <div className="w-full p-4 bg-slate-100 dark:bg-slate-800 border-2 dark:border-slate-600 rounded-md">
         <div className="flex justify-between items-center pb-4">
-          <h2 className="text-gray-500 font-semibold text-xl">Add Product</h2>
+          <h2 className="text-slate-700 dark:text-slate-200 font-semibold text-xl">Add Product</h2>
           <Link
             to="/seller/dashboard/all-products"
-            className="transition duration-500 ease-in-out text-white font-semibold rounded-md bg-indigo-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2"
+            className="transition duration-500 ease-in-out text-white font-semibold rounded-md bg-blue-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2"
           >
             All Products
           </Link>
         </div>
         <div>
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-500">
+            <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-slate-700 dark:text-slate-200">
               <div className="flex flex-col w-full gap-1">
                 <label
-                  className="text-sm font-semibold text-gray-700"
+                  className="text-sm font-semibold"
                   htmlFor="name"
                 >
                   Product Name
@@ -157,7 +156,7 @@ const AddProduct = () => {
                   onChange={handleInput}
                   value={state.name}
                   name="name"
-                  className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                  className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-700 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-slate-700"
                   type="text"
                   id="name"
                   placeholder="Product Name"
@@ -166,7 +165,7 @@ const AddProduct = () => {
               </div>
               <div className="flex flex-col w-full gap-1">
                 <label
-                  className="text-sm font-semibold text-gray-700"
+                  className="text-sm font-semibold"
                   htmlFor="brand"
                 >
                   Product Brand
@@ -175,7 +174,7 @@ const AddProduct = () => {
                   onChange={handleInput}
                   value={state.brand}
                   name="brand"
-                  className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                  className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-700 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-slate-700"
                   type="text"
                   id="brand"
                   placeholder="Product Brand"
@@ -183,10 +182,10 @@ const AddProduct = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-500">
+            <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-slate-700 dark:text-slate-200">
               <div className="flex flex-col w-full gap-1 relative">
                 <label
-                  className="text-sm font-semibold text-gray-700"
+                  className="text-sm font-semibold"
                   htmlFor="category"
                 >
                   Category
@@ -196,7 +195,7 @@ const AddProduct = () => {
                     readOnly
                     onClick={() => setCatShow(!catShow)}
                     value={category}
-                    className="w-full outline-none border-2 rounded-md shadow-md p-2 transition duration-150 ease-in-out pr-10"
+                    className="w-full outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-700 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out pr-10 dark:bg-slate-700"
                     type="text"
                     id="category"
                     placeholder="Select Category"
@@ -204,14 +203,14 @@ const AddProduct = () => {
                   />
                   <div className="absolute  inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     {catShow ? (
-                      <FiChevronUp className="text-gray-700" />
+                      <FiChevronUp className="text-slate-700 dark:text-slate-300" />
                     ) : (
-                      <FiChevronDown className="text-gray-700" />
+                      <FiChevronDown className="text-slate-700 dark:text-slate-300" />
                     )}
                   </div>
                 </div>
                 <div
-                  className={`absolute z-10 top-[101%] bg-white border-2 w-full transition-all ${
+                  className={`absolute z-10 top-[102%] bg-white dark:bg-slate-700 border-2 dark:border-slate-600 w-full transition-all ${
                     catShow ? "scale-100" : "scale-0"
                   }`}
                 >
@@ -219,7 +218,7 @@ const AddProduct = () => {
                     <input
                       onChange={categorySearch}
                       value={searchValue}
-                      className="px-3 py-1 w-full bg-transparent border-2 focus:border-indigo-600 outline-none rounded-md transition duration-150 ease-in-out overflow-hidden"
+                      className="px-3 py-1 w-full bg-transparent border-2 dark:border-slate-600 focus:border-blue-600 dark:focus:border-blue-600 outline-none rounded-md transition duration-150 ease-in-out overflow-hidden dark:bg-slate-600"
                       type="text"
                       placeholder="Search..."
                     />
@@ -235,7 +234,7 @@ const AddProduct = () => {
                           setSearchValue("");
                           setAllCategory(categories);
                         }}
-                        className="cursor-pointer py-2 px-4 w-full bg-gray-50 hover:bg-gray-200 rounded-md"
+                        className="cursor-pointer py-2 px-4 w-full bg-slate-50 dark:bg-slate-600 hover:bg-slate-200 rounded-md"
                       >
                         {c.name}
                       </span>
@@ -245,7 +244,7 @@ const AddProduct = () => {
               </div>
               <div className="flex flex-col w-full gap-1">
                 <label
-                  className="text-sm font-semibold text-gray-700"
+                  className="text-sm font-semibold"
                   htmlFor="stock"
                 >
                   Product Stock
@@ -254,7 +253,7 @@ const AddProduct = () => {
                   onChange={handleInput}
                   value={state.stock}
                   name="stock"
-                  className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                  className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-700 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-slate-700"
                   type="number"
                   id="stock"
                   placeholder="Product stock"
@@ -262,10 +261,10 @@ const AddProduct = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-500">
+            <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-slate-700 dark:text-slate-200">
               <div className="flex flex-col w-full gap-1">
                 <label
-                  className="text-sm font-semibold text-gray-700"
+                  className="text-sm font-semibold"
                   htmlFor="price"
                 >
                   Price
@@ -274,7 +273,7 @@ const AddProduct = () => {
                   onChange={handleInput}
                   value={state.price}
                   name="price"
-                  className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                  className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-700 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-slate-700"
                   type="number"
                   id="price"
                   placeholder="Price"
@@ -283,7 +282,7 @@ const AddProduct = () => {
               </div>
               <div className="flex flex-col w-full gap-1">
                 <label
-                  className="text-sm font-semibold text-gray-700"
+                  className="text-sm font-semibold"
                   htmlFor="discount"
                 >
                   Discount in '%'
@@ -292,7 +291,7 @@ const AddProduct = () => {
                   onChange={handleInput}
                   value={state.discount}
                   name="discount"
-                  className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                  className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-700 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-slate-700"
                   type="number"
                   id="discount"
                   placeholder="Discount by '%'"
@@ -302,7 +301,7 @@ const AddProduct = () => {
             </div>
             <div className="flex flex-col w-full gap-1">
               <label
-                className="text-sm font-semibold text-gray-700"
+                className="text-sm font-semibold"
                 htmlFor="description"
               >
                 Description
@@ -313,13 +312,13 @@ const AddProduct = () => {
                 onChange={handleInput}
                 value={state.description}
                 name="description"
-                className="outline-none text-gray-500 resize-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-700 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-slate-700"
                 id="description"
                 placeholder="Description"
                 required
               />
             </div>
-            <div className="w-full my-4 text-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="w-full my-4 text-slate-700 dark:text-slate-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
               {imageShow.map((img, i) => (
                 <div className="h-[180px] relative" key={i}>
                   <label htmlFor={`image-${i}`}>
@@ -337,14 +336,14 @@ const AddProduct = () => {
                   />
                   <span
                     onClick={() => removeImage(i)}
-                    className="absolute z-10 cursor-pointer top-1 right-1 rounded-full bg-white p-1 hover:bg-gray-200"
+                    className="absolute z-10 cursor-pointer top-1 right-1 rounded-full bg-white p-1 hover:bg-slate-200 dark:bg-slate-600"
                   >
                     <IoMdCloseCircle className="text-2xl text-red-500" />
                   </span>
                 </div>
               ))}
               <label
-                className="flex w-full bg-white shadow-md text-gray-500 font-semibold flex-col h-[180px] cursor-pointer border-2 border-dashed hover:border-indigo-600 justify-center items-center"
+                className="flex w-full bg-white shadow-md dark:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold flex-col h-[180px] cursor-pointer border-2 border-dashed dark:border-slate-600 dark:hover:border-blue-600 hover:border-blue-600 justify-center items-center"
                 htmlFor="image"
               >
                 <span>
@@ -363,7 +362,7 @@ const AddProduct = () => {
             <div className="flex justify-center">
               <button
                 disabled={loader}
-                className="transition duration-500 ease-in-out my-4 text-white font-semibold rounded-md bg-orange-500 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2"
+                className="transition duration-500 ease-in-out my-4 text-white font-semibold rounded-md bg-orange-500 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2 "
               >
                 Add Product
               </button>

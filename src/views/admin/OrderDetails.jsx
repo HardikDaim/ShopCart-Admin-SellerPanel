@@ -127,7 +127,7 @@ const OrderDetails = () => {
                           order?.products.map((p, i) => (
                             <div className="flex gap-3 mt-2">
                               <img
-                                className="w-16 h-12 object-cover rounded-md"
+                                className="max-w-24 max-h-24 object-contain rounded-md"
                                 src={p?.images[0]}
                                 alt="Product"
                               />
@@ -137,7 +137,7 @@ const OrderDetails = () => {
                                 </h2>
                                 <p>
                                   <span>Brand: {p?.brand}</span>
-                                  <span className="ml-4">Quantity: 3</span>
+                                  <span className="ml-4">Quantity: {p?.quantity}</span>
                                 </p>
                               </div>
                             </div>

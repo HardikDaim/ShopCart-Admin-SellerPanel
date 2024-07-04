@@ -8,7 +8,8 @@ import {
   messageClear,
   update_product,
   product_image_update,
-  delete_product_image, add_image
+  delete_product_image,
+  add_image,
 } from "../../store/reducers/ProductReducer";
 import LoaderOverlay from "../../components/LoaderOverlay";
 import { toast } from "react-hot-toast";
@@ -36,8 +37,7 @@ const EditProduct = () => {
   const [allCategory, setAllCategory] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [perPage, setperPage] = useState(5);
-
+  const [perPage, setPerPage] = useState(5);
 
   useEffect(() => {
     const obj = {
@@ -107,22 +107,19 @@ const EditProduct = () => {
   const handleImage = (e) => {
     const files = Array.from(e.target.files);
     if (files.length > 0) {
-        const newImages = [...images, ...files];
-        const newImageURLs = [...imageShow];
-        files.forEach((file) => {
-            newImageURLs.push(URL.createObjectURL(file));
-        });
-        setImages(newImages);
-        setImageShow(newImageURLs);
-        files.forEach((file) => {
-            const formData = new FormData();
-            formData.append('newImage', file);
-            formData.append('productId', productId);
-            console.log('Dispatching add_image with productId:', productId, 'and newImage:', file);
-            dispatch(add_image(formData));
-        });
+      const newImages = [...images, ...files];
+      const newImageURLs = [...imageShow];
+      files.forEach((file) => {
+        newImageURLs.push(URL.createObjectURL(file));
+        const formData = new FormData();
+        formData.append("newImage", file);
+        formData.append("productId", productId);
+        dispatch(add_image(formData));
+      });
+      setImages(newImages);
+      setImageShow(newImageURLs);
     }
-};
+  };
 
   const changeImage = (img, files) => {
     if (files.length > 0) {
@@ -132,12 +129,9 @@ const EditProduct = () => {
     }
   };
 
-
   const removeImage = (img, index) => {
     try {
-      // Remove image from Cloudinary and database
       dispatch(delete_product_image({ imageUrl: img, productId }));
-      // Remove image from state
       const filteredImages = images.filter((_, i) => i !== index);
       const filteredImageUrls = imageShow.filter((_, i) => i !== index);
       setImages(filteredImages);
@@ -146,9 +140,7 @@ const EditProduct = () => {
       console.error("Error deleting image:", error);
     }
   };
-  
-  
-  
+
   const update = (e) => {
     e.preventDefault();
     const obj = {
@@ -167,50 +159,61 @@ const EditProduct = () => {
   return (
     <div className="px-2 lg:px-7 py-5">
       {loader && <LoaderOverlay />}
-      <div className="w-full p-4 bg-gray-100 border-2 rounded-md">
+      <div className="w-full p-4 bg-gray-200 dark:bg-gray-800 border-2 rounded-md dark:border-gray-600">
         <div className="flex justify-between items-center pb-4">
-          <h2 className="text-gray-500 font-semibold text-xl">Edit Product</h2>
+          <h2 className="text-gray-700 dark:text-white font-semibold text-xl">
+            Edit Product
+          </h2>
           <Link
             to="/seller/dashboard/all-products"
-            className="transition duration-500 ease-in-out text-white font-semibold rounded-md bg-indigo-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2"
+            className="transition duration-500 ease-in-out text-white font-semibold rounded-md bg-blue-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2"
           >
             All Products
           </Link>
         </div>
         <form onSubmit={update}>
-          <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-500">
+          <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-700 dark:text-gray-300">
             <div className="flex flex-col w-full gap-1">
-              <label className="text-sm font-semibold text-gray-700" htmlFor="name">
+              <label
+                className="text-sm font-semibold"
+                htmlFor="name"
+              >
                 Product Name
               </label>
               <input
                 onChange={handleInput}
                 value={state.name}
                 name="name"
-                className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-600 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-gray-700 dark:text-white"
                 type="text"
                 id="name"
                 placeholder="Product Name"
               />
             </div>
             <div className="flex flex-col w-full gap-1">
-              <label className="text-sm font-semibold text-gray-700" htmlFor="brand">
+              <label
+                className="text-sm font-semibold"
+                htmlFor="brand"
+              >
                 Product Brand
               </label>
               <input
                 onChange={handleInput}
                 value={state.brand}
                 name="brand"
-                className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-600 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-gray-700 dark:text-white"
                 type="text"
                 id="brand"
                 placeholder="Product Brand"
               />
             </div>
           </div>
-          <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-500">
+          <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-700 dark:text-gray-300">
             <div className="flex flex-col w-full gap-1 relative">
-              <label className="text-sm font-semibold text-gray-700" htmlFor="category">
+              <label
+                className="text-sm font-semibold"
+                htmlFor="category"
+              >
                 Category
               </label>
               <div className="relative ">
@@ -218,20 +221,28 @@ const EditProduct = () => {
                   readOnly
                   onClick={() => setCatShow(!catShow)}
                   value={category}
-                  className="w-full outline-none border-2 rounded-md shadow-md p-2 transition-all duration-150 ease-in-out pr-10"
+                  className="w-full outline-none border-2 focus:border-blue-600 dark:focus:border-blue-600 dark:border-slate-600 rounded-md shadow-md p-2 transition-all duration-150 ease-in-out pr-10 dark:bg-gray-700 dark:text-white"
                   type="text"
                   id="category"
                   placeholder="Select Category"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  {catShow ? <FiChevronUp className="text-gray-700" /> : <FiChevronDown className="text-gray-700" />}
+                  {catShow ? (
+                    <FiChevronUp className="text-gray-700 dark:text-white" />
+                  ) : (
+                    <FiChevronDown className="text-gray-700 dark:text-white" />
+                  )}
                 </div>
               </div>
-              <div className={`absolute top-[101%] bg-white z-50 w-full shadow-lg rounded-md p-2 ${catShow ? "block" : "hidden"}`}>
+              <div
+                className={`absolute top-[101%] bg-white dark:bg-gray-700 z-50 w-full shadow-lg rounded-md p-2 ${
+                  catShow ? "block" : "hidden"
+                }`}
+              >
                 <input
                   onChange={categorySearch}
                   value={searchValue}
-                  className="w-full outline-none border-b-2 p-2 mb-2"
+                  className="w-full outline-none border-b-2 p-2 mb-2 dark:bg-gray-800 dark:border-slate-600 dark:text-white"
                   type="text"
                   placeholder="Search Category"
                 />
@@ -245,8 +256,10 @@ const EditProduct = () => {
                           setCatShow(false);
                         }
                       }}
-                      className={`p-2 cursor-pointer hover:bg-gray-200 ${
-                        c.name === "No category found" ? "cursor-not-allowed" : ""
+                      className={`p-2 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 ${
+                        c.name === "No category found"
+                          ? "cursor-not-allowed"
+                          : ""
                       }`}
                     >
                       {c.name}
@@ -256,74 +269,90 @@ const EditProduct = () => {
               </div>
             </div>
             <div className="flex flex-col w-full gap-1">
-              <label className="text-sm font-semibold text-gray-700" htmlFor="price">
+              <label
+                className="text-sm font-semibold"
+                htmlFor="price"
+              >
                 Product Price
               </label>
               <input
                 onChange={handleInput}
                 value={state.price}
                 name="price"
-                className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-600 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-gray-700 dark:text-white"
                 type="number"
                 id="price"
                 placeholder="Product Price"
               />
             </div>
           </div>
-          <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-500">
+          <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-gray-700 dark:text-gray-300">
             <div className="flex flex-col w-full gap-1">
-              <label className="text-sm font-semibold text-gray-700" htmlFor="stock">
+              <label
+                className="text-sm font-semibold"
+                htmlFor="stock"
+              >
                 Product Stock
               </label>
               <input
                 onChange={handleInput}
                 value={state.stock}
                 name="stock"
-                className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-600 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-gray-700 dark:text-white"
                 type="number"
                 id="stock"
                 placeholder="Product Stock"
               />
             </div>
             <div className="flex flex-col w-full gap-1">
-              <label className="text-sm font-semibold text-gray-700" htmlFor="discount">
+              <label
+                className="text-sm font-semibold"
+                htmlFor="discount"
+              >
                 Discount
               </label>
               <input
                 onChange={handleInput}
                 value={state.discount}
                 name="discount"
-                className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-600 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out dark:bg-gray-700 dark:text-white"
                 type="number"
                 id="discount"
                 placeholder="Discount"
               />
             </div>
           </div>
-          <div className="flex flex-col mb-3 w-full text-gray-500">
+          <div className="flex flex-col mb-3 w-full text-gray-700 dark:text-gray-300">
             <div className="flex flex-col w-full gap-1">
-              <label className="text-sm font-semibold text-gray-700" htmlFor="description">
+              <label
+                className="text-sm font-semibold"
+                htmlFor="description"
+              >
                 Product Description
               </label>
               <textarea
                 onChange={handleInput}
                 value={state.description}
                 name="description"
-                className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                className="outline-none border-2 dark:border-slate-600 rounded-md shadow-md focus:border-blue-600 dark:focus:border-blue-600 p-2 transition duration-150 ease-in-out h-32 dark:bg-gray-700 dark:text-white"
                 id="description"
                 rows="4"
                 placeholder="Product Description"
               />
             </div>
           </div>
-          <div className="flex flex-col mb-3 w-full text-gray-500">
-            <label className="text-sm font-semibold text-gray-700" htmlFor="images">
+          <div className="flex flex-col mb-3 w-full text-gray-700 dark:text-gray-300">
+            <label className="text-sm font-semibold" htmlFor="images">
               Product Images
             </label>
             <div className="flex gap-2 flex-wrap">
               {imageShow.map((img, i) => (
                 <div key={i} className="relative">
-                  <img src={img} alt="product" className="w-24 h-24 object-cover rounded-md border-2" />
+                  <img
+                    src={img}
+                    alt="product"
+                    className="w-24 h-24 object-cover rounded-md border-2 dark:border-slate-600 dark:border-gray-600"
+                  />
                   <input
                     onChange={(e) => changeImage(img, e.target.files)}
                     type="file"
@@ -340,10 +369,9 @@ const EditProduct = () => {
                 </div>
               ))}
               <div>
-                <label className="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-gray-500 rounded-md cursor-pointer">
-                  <span className="text-gray-500">+</span>
+                <label className="flex flex-col items-center justify-center w-24 h-24 border-2 dark:border-slate-600 border-dashed border-gray-500 rounded-md cursor-pointer dark:border-gray-600">
+                  <span className="text-gray-500 dark:text-gray-300">+</span>
                   <input
-                  
                     onChange={handleImage}
                     type="file"
                     className="hidden"
@@ -355,7 +383,7 @@ const EditProduct = () => {
           </div>
           <button
             type="submit"
-            className="transition duration-500 ease-in-out text-white font-semibold rounded-md bg-indigo-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2"
+            className="transition duration-500 ease-in-out text-white font-semibold rounded-md bg-blue-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2"
           >
             Update Product
           </button>

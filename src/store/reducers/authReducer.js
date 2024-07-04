@@ -231,6 +231,20 @@ const authReducer = createSlice({
       .addCase(add_profile_info.rejected, (state, action) => {
         state.loader = false;
         state.errorMessage = action.payload?.error;
+      })
+      .addCase(logout.pending, (state) => {
+        state.loader = true;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.loader = false;
+        state.token = null;
+        state.userInfo = null;
+        state.role = "";
+        state.successMessage = action.payload.message;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loader = false;
+        state.errorMessage = action.payload?.error;
       });
   },
 });

@@ -7,7 +7,6 @@ import {
   updateAdminMessage,
 } from "../../store/reducers/chatReducer";
 import LoaderOverlay from "../../components/LoaderOverlay";
-// import { socket } from "../../utils/utils";
 
 const SellerToAdmin = () => {
   const dispatch = useDispatch();
@@ -19,23 +18,6 @@ const SellerToAdmin = () => {
   useEffect(() => {
     dispatch(get_seller_message());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   socket.on("received_admin_message", (msg) => {
-  //     dispatch(updateAdminMessage(msg));
-  //   });
-
-  //   return () => {
-  //     socket.off("received_admin_message");
-  //   };
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (successMessage) {
-  //     socket.emit("send_message_seller_to_admin", seller_admin_message[seller_admin_message.length - 1]);
-  //     dispatch(messageClear());
-  //   }
-  // }, [successMessage, seller_admin_message, dispatch]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -59,7 +41,7 @@ const SellerToAdmin = () => {
   return (
     <div className="px-2 lg:px-7 py-3">
       {loader && <LoaderOverlay />}
-      <div className="w-full bg-gray-50 my-6 lg:my-0 p-4 rounded-lg border-2 h-[calc(100vh-140px)]">
+      <div className="w-full bg-slate-50 dark:bg-slate-800 my-6 lg:my-0 p-4 rounded-lg border-2 dark:border-slate-600 h-[calc(100vh-140px)]">
         <div className="w-full h-full relative flex flex-col">
           <div className="flex justify-between items-center mb-4">
             <div className="flex justify-start items-center gap-3">
@@ -69,18 +51,18 @@ const SellerToAdmin = () => {
                   src="/images/admin.jpg"
                   alt="Admin"
                 />
-                <div className="w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0"></div>
+                <div className="w-[10px] h-[10px] bg-green-500 dark:bg-green-400 rounded-full absolute right-0 bottom-0"></div>
               </div>
-              <h2 className="font-semibold">Support</h2>
+              <h2 className="font-semibold text-slate-800 dark:text-white">Support</h2>
             </div>
           </div>
-          <div className="flex-grow overflow-y-auto bg-gray-200">
-            <div className="bg-gray-200 h-full rounded-lg p-3">
+          <div className="flex-grow overflow-y-auto bg-slate-200 dark:bg-slate-700">
+            <div className="bg-slate-200 dark:bg-slate-700 h-full rounded-lg p-3">
               {seller_admin_message.length > 0 ? (
                 seller_admin_message.map((m, i) => (
                   <div
                     key={i}
-                    ref={scrollRef}
+                    ref={i === seller_admin_message.length - 1 ? scrollRef : null}
                     className={`w-full flex ${
                       userInfo?._id === m.senderId ? "justify-end" : "justify-start"
                     } items-center mb-2`}
@@ -96,8 +78,8 @@ const SellerToAdmin = () => {
                       <div
                         className={`flex justify-center items-start flex-col w-full py-1 px-2 rounded-md ${
                           userInfo?._id === m.senderId
-                            ? "bg-indigo-500 text-white"
-                            : "bg-gray-300 text-gray-800"
+                            ? "bg-blue-500 text-white"
+                            : "bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-300"
                         }`}
                       >
                         <span>{m?.message}</span>
@@ -122,12 +104,12 @@ const SellerToAdmin = () => {
               onChange={(e) => setText(e.target.value)}
               value={text}
               type="text"
-              className="w-full flex justify-between px-2 border-2 items-center py-[5px] focus:border-indigo-500 rounded-md outline-none bg-transparent text-gray-700"
+              className="w-full flex justify-between px-2 border-2 items-center py-[5px] dark:border-slate-600 focus:border-blue-500 rounded-md outline-none bg-transparent text-slate-700 dark:text-slate-300"
               placeholder="Type your Message..."
             />
             <button
               type="submit"
-              className="p-2 bg-indigo-500 hover:bg-indigo-400 text-white rounded-md font-semibold"
+              className="p-2 bg-blue-700 hover:bg-blue-600 text-white rounded-md font-semibold"
             >
               Send
             </button>

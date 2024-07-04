@@ -10,11 +10,12 @@ function handleOnWheel({ deltaY }) {}
 const outerElementType = forwardRef((props, ref) => (
   <div ref={ref} onWheel={handleOnWheel} {...props} />
 ));
+
 const Row = ({ index, style }) => {
   return (
     <div
       style={style}
-      className="flex text-sm overflow-x-auto text-gray-700  bg-white font-medium"
+      className="flex text-sm overflow-x-auto text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 font-medium"
     >
       <div className="flex-1 p-2 whitespace-nowrap">{index + 1}</div>
       <div className="flex-1 p-2 whitespace-nowrap">$3434</div>
@@ -27,49 +28,50 @@ const Row = ({ index, style }) => {
     </div>
   );
 };
+
 const Payments = () => {
   return (
-    <div className="px-2 lg:px-7 py-5">
+    <div className="px-2 lg:px-7 py-5 bg-slate-100 rounded-md dark:bg-slate-800">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
-        <div className="flex justify-between items-center p-5 bg-gray-50 border-2 rounded-md gap-3">
-          <div className="flex flex-col justify-start items-start text-gray-800 ">
+        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600 rounded-md gap-3">
+          <div className="flex flex-col justify-start items-start text-slate-800 dark:text-white">
             <h2 className="text-3xl font-bold">₹3343</h2>
             <span className="text-md font-medium">Total Sales</span>
           </div>
-          <div className="w-[40px] h-[47px] rounded-full bg-yellow-400 flex justify-center items-center text-xl">
+          <div className="w-[40px] h-[47px] rounded-full bg-yellow-400 dark:bg-yellow-300 flex justify-center items-center text-xl">
             <MdCurrencyRupee />
           </div>
         </div>
-        <div className="flex justify-between items-center p-5 bg-gray-50 border-2 rounded-md gap-3">
-          <div className="flex flex-col justify-start items-start text-gray-800 ">
+        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3">
+          <div className="flex flex-col justify-start items-start text-slate-800 dark:text-white">
             <h2 className="text-3xl font-bold">50</h2>
-            <span className="text-md font-medium">Available Amount </span>
+            <span className="text-md font-medium">Available Amount</span>
           </div>
-          <div className="w-[40px] h-[47px] rounded-full bg-indigo-400 flex justify-center items-center text-xl">
+          <div className="w-[40px] h-[47px] rounded-full bg-blue-400 dark:bg-blue-300 flex justify-center items-center text-xl">
             <MdProductionQuantityLimits />
           </div>
         </div>
-        <div className="flex justify-between items-center p-5 bg-gray-50 border-2 rounded-md gap-3">
-          <div className="flex flex-col justify-start items-start text-gray-800 ">
+        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3">
+          <div className="flex flex-col justify-start items-start text-slate-800 dark:text-white">
             <h2 className="text-3xl font-bold">10</h2>
-            <span className="text-md font-medium">Withdrawl Amount</span>
+            <span className="text-md font-medium">Withdrawal Amount</span>
           </div>
-          <div className="w-[40px] h-[47px] rounded-full bg-pink-400 flex justify-center items-center text-xl">
+          <div className="w-[40px] h-[47px] rounded-full bg-pink-400 dark:bg-pink-300 flex justify-center items-center text-xl">
             <GrDeliver />
           </div>
         </div>
-        <div className="flex justify-between items-center p-5 bg-gray-50 border-2 rounded-md gap-3">
-          <div className="flex flex-col justify-start items-start text-gray-800 ">
+        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3">
+          <div className="flex flex-col justify-start items-start text-slate-800 dark:text-white">
             <h2 className="text-3xl font-bold">1</h2>
             <span className="text-md font-medium">Pending Amount</span>
           </div>
-          <div className="w-[40px] h-[47px] rounded-full bg-blue-400 flex justify-center items-center text-xl">
+          <div className="w-[40px] h-[47px] rounded-full bg-blue-400 dark:bg-blue-300 flex justify-center items-center text-xl">
             <MdOutlinePendingActions />
           </div>
         </div>
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 pb-4 my-7">
-        <div className="bg-gray-50 border-2 text-gray-500 p-5 rounded-md">
+        <div className="bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  text-slate-500 dark:text-slate-300 p-5 rounded-md">
           <h2 className="text-lg">Send Request</h2>
           <div className="py-3">
             <form>
@@ -78,7 +80,7 @@ const Payments = () => {
                   <div className="relative flex-grow">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                       <svg
-                        className="w-4 h-4 text-gray-500"
+                        className="w-4 h-4 text-slate-500 dark:text-slate-300"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -97,12 +99,12 @@ const Payments = () => {
                       name="amount"
                       type="number"
                       min="0"
-                      className="block w-full pl-10 pr-4 py-3 text-gray-500 border-2 outline-none border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 caret-indigo-500"
-                      placeholder="Search here"
+                      className="block dark:border-slate-600  w-full pl-10 pr-4 py-3 text-slate-500 dark:text-slate-300 border-2 outline-none border-slate-300 rounded-lg bg-slate-50 dark:bg-slate-600 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 caret-blue-700"
+                      placeholder="Enter Amount"
                       required
                     />
                   </div>
-                  <button className="ml-3 transition duration-500 ease-in-out text-white font-semibold rounded-md bg-indigo-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 w-1/4 p-1 md:px-5 md:py-2">
+                  <button className="ml-3 transition duration-500 ease-in-out text-white font-semibold rounded-md bg-blue-600 dark:bg-blue-600 hover:bg-red-600 dark:hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110 w-1/4 p-1 md:px-5 md:py-2">
                     Submit
                   </button>
                 </div>
@@ -110,38 +112,10 @@ const Payments = () => {
             </form>
           </div>
           <div>
-            <h2 className="text-lg pb-4">Pending Request</h2>
+            <h2 className="text-lg pb-4">Pending Requests</h2>
             <div className="overflow-x-auto">
-              <div>
-                <div className="min-w-full divide-y divide-gray-200">
-                  <div className="bg-gray-100 flex text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    <div className="flex-1 p-3">S.No</div>
-                    <div className="flex-1 p-3">Amount</div>
-                    <div className="flex-1 p-3">Status</div>
-                    <div className="flex-1 p-3">Date</div>
-                  </div>
-                </div>
-                <List
-                  style={{ minWidth: "340px" }}
-                  className="List text-cente overflow-x-auto"
-                  height={500}
-                  itemCount={1000}
-                  itemSize={50}
-                  outerElementType={outerElementType}
-                >
-                  {Row}
-                </List>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-50 border-2 text-green-600 font-semibold p-5 rounded-md">
-          <h2 className="text-lg">Success Withdraw</h2>
-          <div className="py-3"></div>
-          <div className="overflow-x-auto">
-            <div>
-              <div className="min-w-full divide-y divide-gray-200">
-                <div className="bg-gray-100 flex text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <div className="min-w-full divide-y divide-slate-200 dark:divide-slate-600">
+                <div className="bg-slate-100 dark:bg-slate-700 flex text-center text-xs font-bold text-slate-500 dark:text-white uppercase tracking-wider">
                   <div className="flex-1 p-3">S.No</div>
                   <div className="flex-1 p-3">Amount</div>
                   <div className="flex-1 p-3">Status</div>
@@ -150,8 +124,8 @@ const Payments = () => {
               </div>
               <List
                 style={{ minWidth: "340px" }}
-                className="List text-cente overflow-x-auto"
-                height={600}
+                className="List text-center overflow-x-auto"
+                height={500}
                 itemCount={1000}
                 itemSize={50}
                 outerElementType={outerElementType}
@@ -159,6 +133,30 @@ const Payments = () => {
                 {Row}
               </List>
             </div>
+          </div>
+        </div>
+        <div className="bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  text-green-600 dark:text-green-400 font-semibold p-5 rounded-md">
+          <h2 className="text-lg">Success Withdrawals</h2>
+          <div className="py-3"></div>
+          <div className="overflow-x-auto">
+            <div className="min-w-full divide-y divide-slate-200 dark:divide-slate-600">
+              <div className="bg-slate-100 dark:bg-slate-700 flex text-center text-xs font-bold text-slate-500 dark:text-white uppercase tracking-wider">
+                <div className="flex-1 p-3">S.No</div>
+                <div className="flex-1 p-3">Amount</div>
+                <div className="flex-1 p-3">Status</div>
+                <div className="flex-1 p-3">Date</div>
+              </div>
+            </div>
+            <List
+              style={{ minWidth: "340px" }}
+              className="List text-center overflow-x-auto"
+              height={600}
+              itemCount={1000}
+              itemSize={50}
+              outerElementType={outerElementType}
+            >
+              {Row}
+            </List>
           </div>
         </div>
       </div>

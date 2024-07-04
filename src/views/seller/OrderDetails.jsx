@@ -46,13 +46,13 @@ const OrderDetails = () => {
     <div className="px-4 lg:px-8 pt-6">
       <div className="w-full p-6 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-md shadow-md">
         <div className="flex justify-between items-center pb-4 border-b dark:border-slate-700">
-          <h2 className="text-2xl text-gray-800 dark:text-slate-200 font-semibold">
+          <h2 className="text-2xl text-slate-800 dark:text-slate-200 font-semibold">
             Order Details
           </h2>
           <select
             value={status}
             onChange={statusUpdate}
-            className="px-0 md:px-4 py-2 border-2 bg-white dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600 rounded-md focus:border-indigo-500 dark:focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-300 transition ease-in-out duration-150"
+            className="px-0 md:px-4 py-2 border-2 bg-white dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600 rounded-md focus:border-blue-500 dark:focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-300 transition ease-in-out duration-150"
           >
             <option value="cancelled">Cancelled</option>
             <option value="pending">Pending</option>
@@ -62,7 +62,7 @@ const OrderDetails = () => {
           </select>
         </div>
         <div className="pt-4">
-          <div className="flex flex-col lg:flex-row justify-between text-lg text-gray-700 dark:text-slate-300 font-medium">
+          <div className="flex flex-col lg:flex-row justify-between text-lg text-slate-700 dark:text-slate-300 font-medium">
             <h2 className="text-sm md:text-xl">Order Id: #{order?._id}</h2>
             <span className="text-sm md:text-lg">{order?.date}</span>
           </div>
@@ -97,9 +97,9 @@ const OrderDetails = () => {
                   order?.products?.map((p, i) => (
                     <div
                       key={i + 20}
-                      className="p-4 bg-gray-100 dark:bg-slate-700 rounded-md"
+                      className="p-4 bg-slate-100 dark:bg-slate-700 rounded-md"
                     >
-                      <div className="text-gray-700 dark:text-slate-300">
+                      <div className="text-slate-700 dark:text-slate-300">
                         <div className="flex gap-3 mt-2">
                           <img
                             className="w-16 h-12 object-cover rounded-md"
@@ -110,7 +110,7 @@ const OrderDetails = () => {
                             <h2 className="dark:text-slate-200">{p.name}</h2>
                             <p>
                               <span>Brand: {p?.brand}</span>
-                              <span className="ml-4">Quantity: 3</span>
+                              <span className="ml-4">Quantity: {p?.quantity}</span>
                             </p>
                           </div>
                         </div>

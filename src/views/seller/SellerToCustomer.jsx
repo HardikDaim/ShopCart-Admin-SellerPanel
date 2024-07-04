@@ -209,7 +209,7 @@ const SellerToCustomer = () => {
                                 className={`flex justify-center items-start flex-col w-full ${
                                   isSender
                                     ? "bg-blue-600 text-white"
-                                    : "bg-gray-300 dark:bg-gray-800 dark:text-white"
+                                    : "bg-slate-300 dark:bg-slate-800 dark:text-white"
                                 } font-semibold py-1 px-2 rounded-md`}
                               >
                                 <span>{m?.message}</span>

@@ -29,11 +29,11 @@ const Orders = () => {
   return (
     <>
       <div className="px-2 lg:px-7 pt-5">
-        <div className="w-full p-4 bg-gray-50 border-2 rounded-md">
+        <div className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 dark:border-slate-600 rounded-md">
           <div className="flex justify-between items-center mb-6">
             <select
               onChange={(e) => setPerPage(parseInt(e.target.value))}
-              className="p-2 pr-0 hover:bg-gray-100 border-2  outline-none bg-gray-50 rounded-md text-gray-700"
+              className="p-2 pr-0 hover:bg-slate-100 dark:hover:bg-slate-700 border-2 dark:border-slate-600 outline-none bg-slate-50 dark:bg-slate-700 rounded-md text-slate-700 dark:text-white"
             >
               <option value="5">5</option>
               <option value="10">10</option>
@@ -42,7 +42,7 @@ const Orders = () => {
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-500"
+                  className="w-4 h-4 text-slate-500 dark:text-slate-400"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -59,7 +59,7 @@ const Orders = () => {
               </div>
               <input
                 type="search"
-                className="block w-full pl-10 pr-2 py-3 text-sm text-gray-900 border-2 outline-none border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 caret-indigo-500"
+                className="block w-full pl-10 pr-2 py-3 text-sm text-slate-900 dark:text-white border-2 outline-none border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-700 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-700 dark:focus:border-blue-700  caret-blue-700"
                 placeholder="Search here"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
@@ -69,48 +69,48 @@ const Orders = () => {
           </div>
           <div className="overflow-x-auto">
             {myOrders.length > 0 ? (
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-100">
+              <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
+                <thead className="bg-slate-100 dark:bg-slate-700">
                   <tr>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                     >
                       Order ID
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                     >
                       Price
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                     >
                       Payment Status
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                     >
                       Order Status
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                     >
                       Action
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                     >
                       Expand
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200 text-gray-500">
+                <tbody className="bg-white dark:bg-slate-800 divide-y divide-slate-200 dark:divide-slate-700 text-slate-500 dark:text-slate-400">
                   {myOrders.map((order) => (
                     <React.Fragment key={order?._id}>
                       <tr>
@@ -123,13 +123,13 @@ const Orders = () => {
                         <td className="px-6 py-4 whitespace-nowrap capitalize">
                           {order?.payment_status}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowra capitalize">
+                        <td className="px-6 py-4 whitespace-nowrap capitalize">
                           {order?.delivery_status}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <Link
                             to={`/admin/dashboard/order/details/${order?._id}`}
-                            className="hover:underline"
+                            className="hover:underline text-blue-700 dark:text-blue-300"
                           >
                             View
                           </Link>
@@ -137,23 +137,23 @@ const Orders = () => {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <IoIosArrowDropdown
                             onClick={() => handleExpandClick(order?._id)}
-                            className="text-xl text-gray-600 hover:text-gray-900 cursor-pointer"
+                            className="text-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer"
                           />
                         </td>
                       </tr>
                       {expandedOrder === order?._id &&
                         order.suborder.map((o, i) => (
-                          <tr className="bg-red-50">
+                          <tr key={i} className="bg-red-100 dark:bg-red-400 dark:text-white">
                             <td className="px-6 py-4 whitespace-nowrap">
                               #{o?.orderId}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               ₹{o?.price.toLocaleString("en-IN")}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-6 py-4 whitespace-nowrap capitalize">
                               {o?.payment_status}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
+                            <td className="px-6 py-4 whitespace-nowrap capitalize">
                               {o?.delivery_status}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap hover:underline"></td>
@@ -165,7 +165,7 @@ const Orders = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="text-center text-gray-500">No orders found.</div>
+              <div className="text-center text-slate-500 dark:text-slate-400">No orders found.</div>
             )}
           </div>
           {totalOrders >= perPage ? (

@@ -1,17 +1,26 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { IoPerson } from "react-icons/io5";
+import ThemeToggle from "../components/ThemeToggle";
+import toast from "react-hot-toast";
+
 const Header = ({ showSidebar, toggleSidebar }) => {
   const { userInfo, role } = useSelector((state) => state.auth);
 
   return (
-    <div className="fixed top-0 left-0 w-full bg-gray-50 py-1.5 px-2 lg:px-7 z-40">
+    <div className="fixed top-0 left-0 w-full bg-slate-50 dark:bg-slate-900 py-1.5 px-2 lg:px-7 z-40">
       <div className="ml-0 lg:ml-[260px] transition-all">
         <div className="flex justify-between items-center">
           <div>
             <button
-              onClick={() => toggleSidebar(!showSidebar)}
-              className="lg:hidden"
+              onClick={() => {
+                if (userInfo) {
+                  toggleSidebar(!showSidebar);
+                } else {
+                  toast.error("Please logIn or Register first");
+                }
+              }}
+              className="lg:hidden text-slate-900 dark:text-slate-100"
             >
               <svg
                 className="w-6 h-6"
@@ -29,11 +38,11 @@ const Header = ({ showSidebar, toggleSidebar }) => {
             </button>
           </div>
           <div>
-            <form className="max-w-auto-full mx-auto hidden md:block">
+            {/* <form className="max-w-auto-full mx-auto hidden md:block">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <svg
-                    className="w-4 h-4 text-gray-500"
+                    className="w-4 h-4 text-slate-500 dark:text-slate-400"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -50,44 +59,48 @@ const Header = ({ showSidebar, toggleSidebar }) => {
                 </div>
                 <input
                   type="search"
-                  className="block w-full pl-10 pr-12 py-3 text-sm text-gray-900 border-2 outline-none border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 caret-indigo-500 "
+                  className="block w-full pl-10 pr-12 py-3 text-sm text-slate-900 dark:text-slate-100 border-2 outline-none border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-800 focus:ring-indigo-500 focus:border-indigo-500 caret-indigo-500 "
                   placeholder="Search here"
                   required
                 />
                 <button
                   type="submit"
-                  className="absolute inset-y-0 right-0 flex items-center justify-center px-2  m-2 text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm"
+                  className="absolute inset-y-0 right-0 flex items-center justify-center px-2 m-2 text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm"
                 >
                   Search
                 </button>
               </div>
-            </form>
+            </form> */}
           </div>
-          <div className="flex flex-row justify-center gap-x-2">
-            <div className="flex flex-col text-end justify-center items-end  relative">
+          <div className="flex flex-row justify-center items-center gap-x-2">
+            <ThemeToggle />
+            <div className="flex flex-col text-end justify-center items-end relative">
               {userInfo ? (
-                <div className="flex flex-col text-end justify-center items-end  relative">
-                  <h2 className="text-md font-bold">{userInfo?.name}</h2>
+                <div className="flex flex-col text-end justify-center items-end relative">
+                  <h2 className="text-md font-bold text-slate-900 dark:text-slate-100">
+                    {userInfo?.name}
+                  </h2>
                 </div>
               ) : (
-                "UserName"
+                ""
               )}
-              <span className="text-sm">{role}</span>
+              <span className="text-sm text-slate-700 dark:text-slate-400 capitalize">
+                {role}
+              </span>
             </div>
             {userInfo?.role === "admin" ? (
               <img
                 className="h-14 w-14 rounded-full overflow-hidden"
                 src="/images/admin.jpg"
+                alt="Admin"
               />
             ) : userInfo?.image ? (
               <img
                 className="h-14 w-14 rounded-full overflow-hidden"
-                src={userInfo?.image}
+                src={userInfo?.image || <IoPerson />}
               />
             ) : (
-              <div className="flex items-center justify-center text-2xl md:text-4xl ">
-                <IoPerson />
-              </div>
+              ""
             )}
           </div>
         </div>

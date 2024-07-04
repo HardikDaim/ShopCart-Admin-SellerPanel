@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaImages } from "react-icons/fa6";
-import { FaRegEdit } from "react-icons/fa";
+import { FaImages, FaRegEdit } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -44,7 +43,7 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(add_profile_info(state));
-    setIsEditing(false); 
+    setIsEditing(false);
   };
 
   useEffect(() => {
@@ -63,12 +62,12 @@ const Profile = () => {
       {loader && <LoaderOverlay />}
       <div className="w-full flex flex-wrap">
         <div className="w-full md:w-6/12 mb-6 md:mb-0">
-          <div className="w-full p-4 bg-gray-50 border-2 rounded-md text-gray-500">
+          <div className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 dark:border-slate-600 rounded-md text-slate-500 dark:text-slate-300">
             <div className="flex justify-center items-center py-4">
               {userInfo?.image ? (
                 <label
                   htmlFor="img"
-                  className="relative flex flex-col h-[210px] w-[210px] cursor-pointer justify-center items-center rounded-full overflow-hidden border-4 border-indigo-500 shadow-md"
+                  className="relative flex flex-col h-[210px] w-[210px] cursor-pointer justify-center items-center rounded-full overflow-hidden border-4 border-blue-500 dark:border-slate-600 shadow-md"
                 >
                   <img
                     src={userInfo?.image}
@@ -76,7 +75,7 @@ const Profile = () => {
                     className="w-full h-full object-cover"
                   />
                   {loader && (
-                    <div className="absolute w-full h-full top-0 left-0 bg-white opacity-70 flex justify-center items-center z-20">
+                    <div className="absolute w-full h-full top-0 left-0 bg-white dark:bg-slate-800 opacity-70 flex justify-center items-center z-20">
                       <FadeLoader color="#4A90E2" />
                     </div>
                   )}
@@ -84,12 +83,12 @@ const Profile = () => {
               ) : (
                 <label
                   htmlFor="img"
-                  className="relative flex flex-col h-[210px] w-[210px] cursor-pointer border-2 border-indigo-600 border-dashed hover:border-red-600 justify-center items-center rounded-full"
+                  className="relative flex flex-col h-[210px] w-[210px] cursor-pointer border-2 border-blue-600 border-dashed hover:border-red-600 dark:border-slate-600 dark:hover:border-red-600 justify-center items-center rounded-full"
                 >
-                  <FaImages className="text-4xl text-gray-500 mb-2" />
+                  <FaImages className="text-4xl text-slate-500 dark:text-slate-300 mb-2" />
                   <span className="text-lg">Upload Profile Picture</span>
                   {loader && (
-                    <div className="absolute w-full h-full top-0 left-0 bg-white opacity-70 flex justify-center items-center z-20">
+                    <div className="absolute w-full h-full top-0 left-0 bg-white dark:bg-slate-800 opacity-70 flex justify-center items-center z-20">
                       <FadeLoader color="#4A90E2" />
                     </div>
                   )}
@@ -104,12 +103,12 @@ const Profile = () => {
               />
             </div>
             <div className="px-0 md:px-5 py-2">
-              <div className="relative flex justify-between text-sm flex-col gap-2 p-4 bg-white rounded-md border-2">
+              <div className="relative flex justify-between text-sm flex-col gap-2 p-4 bg-white dark:bg-slate-700 rounded-md border-2 dark:border-slate-600">
                 <span
-                  className="absolute right-2 top-2 p-[6px] rounded-full border-2 hover:bg-gray-100 cursor-pointer "
+                  className="absolute right-2 top-2 p-[6px] rounded-full border-2 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer"
                   onClick={() => setIsEditing(!isEditing)}
                 >
-                  <FaRegEdit className="text-xl text-gray-500" />
+                  <FaRegEdit className="text-xl text-slate-500 dark:text-slate-300" />
                 </span>
                 <div className="flex gap-2">
                   <span>Name :</span>
@@ -129,8 +128,8 @@ const Profile = () => {
                     className={`${
                       userInfo?.status === "pending" ||
                       userInfo?.status === "deactive"
-                        ? "text-red-600"
-                        : "text-green-500"
+                        ? "text-red-600 dark:text-red-500"
+                        : "text-green-500 dark:text-green-400"
                     } font-semibold capitalize`}
                   >
                     {userInfo?.status}
@@ -140,7 +139,7 @@ const Profile = () => {
                   <span>Payment Account :</span>
                   <p>
                     {userInfo?.payment === "active" ? (
-                      <span className="text-green-500 capitalize">
+                      <span className="text-green-500 dark:text-green-400 capitalize">
                         {userInfo?.payment}{" "}
                       </span>
                     ) : (
@@ -148,7 +147,7 @@ const Profile = () => {
                         onClick={() =>
                           dispatch(create_paypal_connect_account())
                         }
-                        className="text-red-600 cursor-pointer hover:underline font-semibold"
+                        className="text-red-600 dark:text-red-500 cursor-pointer hover:underline font-semibold"
                       >
                         Click to Activate{" "}
                       </span>
@@ -162,7 +161,7 @@ const Profile = () => {
                 <form onSubmit={handleSubmit}>
                   <div className="flex flex-col w-full gap-1 mb-4">
                     <label
-                      className="text-sm font-semibold text-gray-700"
+                      className="text-sm font-semibold text-slate-700 dark:text-slate-300"
                       htmlFor="shopName"
                     >
                       Shop Name
@@ -172,7 +171,7 @@ const Profile = () => {
                       onChange={handleInput}
                       name="shopName"
                       value={state.shopName}
-                      className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                      className="outline-none border-2 rounded-md shadow-md focus:border-blue-600 dark:focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                       type="text"
                       id="shopName"
                       placeholder="Shop Name"
@@ -180,7 +179,7 @@ const Profile = () => {
                   </div>
                   <div className="flex flex-col w-full gap-1 mb-4">
                     <label
-                      className="text-sm font-semibold text-gray-700"
+                      className="text-sm font-semibold text-slate-700 dark:text-slate-300"
                       htmlFor="state"
                     >
                       State Name
@@ -190,7 +189,7 @@ const Profile = () => {
                       onChange={handleInput}
                       name="state"
                       value={state.state}
-                      className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                      className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                       type="text"
                       id="state"
                       placeholder="State Name"
@@ -198,7 +197,7 @@ const Profile = () => {
                   </div>
                   <div className="flex flex-col w-full gap-1 mb-4">
                     <label
-                      className="text-sm font-semibold text-gray-700"
+                      className="text-sm font-semibold text-slate-700 dark:text-slate-300"
                       htmlFor="city"
                     >
                       City Name
@@ -208,7 +207,7 @@ const Profile = () => {
                       onChange={handleInput}
                       name="city"
                       value={state.city}
-                      className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                      className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                       type="text"
                       id="city"
                       placeholder="City Name"
@@ -216,7 +215,7 @@ const Profile = () => {
                   </div>
                   <div className="flex flex-col w-full gap-1 mb-4">
                     <label
-                      className="text-sm font-semibold text-gray-700"
+                      className="text-sm font-semibold text-slate-700 dark:text-slate-300"
                       htmlFor="country"
                     >
                       Country Name
@@ -226,7 +225,7 @@ const Profile = () => {
                       onChange={handleInput}
                       name="country"
                       value={state.country}
-                      className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                      className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                       type="text"
                       id="country"
                       placeholder="Country Name"
@@ -242,19 +241,19 @@ const Profile = () => {
                     <button
                       type="button"
                       onClick={() => setIsEditing(false)}
-                      className="transition duration-500 ease-in-out my-4 text-white font-semibold rounded-md bg-gray-500 hover:bg-gray-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2 ml-2"
+                      className="transition duration-500 ease-in-out my-4 text-white font-semibold rounded-md bg-slate-500 hover:bg-slate-600 transform hover:-translate-y-1 hover:scale-110 px-7 py-2 ml-2"
                     >
                       Cancel
                     </button>
                   </div>
                 </form>
               ) : (
-                <div className="relative flex justify-between text-sm flex-col gap-2 p-4 bg-white rounded-md border-2">
+                <div className="relative flex justify-between text-sm flex-col gap-2 p-4 bg-white dark:bg-slate-700 rounded-md border-2 dark:border-slate-600">
                   <span
-                    className="absolute right-2 top-2 p-[6px] rounded-full border-2 hover:bg-gray-100 cursor-pointer "
+                    className="absolute right-2 top-2 p-[6px] rounded-full border-2 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer"
                     onClick={() => setIsEditing(true)}
                   >
-                    <FaRegEdit className="text-xl text-gray-500" />
+                    <FaRegEdit className="text-xl text-slate-500 dark:text-slate-300" />
                   </span>
                   <div className="flex gap-2">
                     <span>Shop Name :</span>
@@ -279,12 +278,12 @@ const Profile = () => {
         </div>
         <div className="w-full md:w-6/12">
           <div className="w-full md:pl-7">
-            <div className="bg-gray-50 rounded-md border-2 p-4 text-gray-500">
+            <div className="bg-slate-50 dark:bg-slate-800 rounded-md border-2 p-4 text-slate-500 dark:text-slate-300 dark:border-slate-600">
               <h2 className="font-semibold py-4 text-xl">Change Password</h2>
               <form>
                 <div className="flex flex-col w-full gap-1 mb-4">
                   <label
-                    className="text-sm font-semibold text-gray-700"
+                    className="text-sm font-semibold text-slate-700 dark:text-slate-300"
                     htmlFor="email"
                   >
                     E-Mail
@@ -292,7 +291,7 @@ const Profile = () => {
                   <input
                     required
                     name="email"
-                    className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                    className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                     type="text"
                     id="email"
                     placeholder="E-Mail"
@@ -300,7 +299,7 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-col w-full gap-1 mb-4">
                   <label
-                    className="text-sm font-semibold text-gray-700"
+                    className="text-sm font-semibold text-slate-700 dark:text-slate-300"
                     htmlFor="password"
                   >
                     Password
@@ -308,7 +307,7 @@ const Profile = () => {
                   <input
                     required
                     name="password"
-                    className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                    className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                     type="password"
                     id="password"
                     placeholder="Password"
@@ -316,7 +315,7 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-col w-full gap-1 mb-4">
                   <label
-                    className="text-sm font-semibold text-gray-700"
+                    className="text-sm font-semibold text-slate-700 dark:text-slate-300"
                     htmlFor="conpass"
                   >
                     Confirm Password
@@ -324,7 +323,7 @@ const Profile = () => {
                   <input
                     required
                     name="conpass"
-                    className="outline-none border-2 rounded-md shadow-md focus:border-indigo-600 p-2 transition duration-150 ease-in-out"
+                    className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                     type="password"
                     id="conpass"
                     placeholder="Confirm Password"

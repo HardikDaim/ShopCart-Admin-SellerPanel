@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
-
 import { useDispatch, useSelector } from "react-redux";
 import { get_active_sellers } from "../../store/reducers/sellerReducer";
 import Pagination from "../Pagignation";
@@ -26,11 +25,11 @@ const Sellers = () => {
 
   return (
     <div className="px-2 lg:px-7 pt-5">
-      <div className="w-full p-4 bg-gray-50 border-2 rounded-md">
+      <div className="w-full p-4 bg-gray-50 dark:bg-gray-800 border-2 dark:border-gray-600 rounded-md">
         <div className="flex justify-between items-center mb-6">
           <select
             onChange={(e) => setPerPage(parseInt(e.target.value))}
-            className="p-2 pr-0 hover:bg-gray-100 border-2 outline-none bg-gray-50 rounded-md text-gray-700"
+            className="p-2 pr-0 hover:bg-gray-100 dark:hover:bg-gray-700 border-2 dark:border-gray-600 outline-none bg-gray-50 dark:bg-gray-700 rounded-md text-gray-700 dark:text-gray-300"
           >
             <option value="5">5</option>
             <option value="10">10</option>
@@ -39,7 +38,7 @@ const Sellers = () => {
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg
-                className="w-4 h-4 text-gray-500"
+                className="w-4 h-4 text-gray-500 dark:text-gray-400"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -56,7 +55,7 @@ const Sellers = () => {
             </div>
             <input
               type="search"
-              className="block w-full pl-10 pr-2 py-3 text-sm text-gray-900 border-2 outline-none border-gray-300 rounded-lg bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 caret-indigo-500"
+              className="block w-full pl-10 pr-2 py-3 text-sm text-gray-900 dark:text-gray-300 border-2 outline-none border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:ring-indigo-500 focus:border-indigo-500 caret-indigo-500"
               placeholder="Search here"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -65,101 +64,93 @@ const Sellers = () => {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-100">
+          <table className="min-w-full">
+            <thead className="bg-gray-100 dark:bg-gray-700">
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   S.No
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-center text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   Image
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   Name
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   Shop Name
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   Payment Status
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   E-Mail
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   State
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   City
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider"
                 >
                   Action
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200 text-gray-500">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200  text-gray-500 dark:text-gray-300">
               {sellers.length > 0 ? (
                 sellers.map((seller, index) => (
                   <React.Fragment key={seller?._id}>
                     <tr>
+                      <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {index + 1}
+                        <img
+                          className="max-h-16 max-w-16 rounded-md mx-auto"
+                          src={seller?.image}
+                          alt={seller?.name}
+                        />
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">{seller?.name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{seller?.shopInfo?.shopName}</td>
+                      <td className="px-6 py-4 whitespace-nowrap capitalize">{seller?.payment}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{seller?.email}</td>
+                      <td className="px-6 py-4 whitespace-nowrap capitalize">{seller?.shopInfo?.state}</td>
+                      <td className="px-6 py-4 whitespace-nowrap capitalize">{seller?.shopInfo?.city}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <img src={seller?.image} />
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {seller?.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {seller?.shopInfo?.shopName}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap capitalize">
-                        {seller?.payment}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {seller?.email}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {seller?.shopInfo?.state}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {seller?.shopInfo?.city}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <Link to={`/admin/dashboard/seller/details/${seller?._id}`} className="cursor-pointer">
-                          <FaEye className="text-xl text-gray-600 hover:text-gray-900" />
+                        <Link
+                          to={`/admin/dashboard/seller/details/${seller?._id}`}
+                          className="text-gray-600 hover:text-gray-900 dark:text-gray-400 "
+                        >
+                          <FaEye className="text-xl" />
                         </Link>
                       </td>
                     </tr>
-                    
                   </React.Fragment>
                 ))
               ) : (
