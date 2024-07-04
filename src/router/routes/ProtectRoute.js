@@ -50,7 +50,7 @@ const ProtectRoute = ({ route, children }) => {
 
   if (route?.visibility && !route?.visibility.includes(userInfo?.status)) {
     console.log("Redirecting to account pending: visibility check failed");
-    return <Navigate to="/seller/account-pending" replace />;
+    return <Navigate to="/seller/account-deactive" replace />;
   }
 
   if (route?.ability && route?.ability !== role) {

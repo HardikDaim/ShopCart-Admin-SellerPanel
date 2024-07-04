@@ -68,6 +68,7 @@ const Login = () => {
             </label>
             <div className="mt-2">
               <input
+              placeholder="Enter E-Mail"
                 name="email"
                 type="email"
                 id="email"
@@ -88,6 +89,7 @@ const Login = () => {
             <div className="mt-2 relative">
               <input
                 name="password"
+                placeholder="Enter Password"
                 type={showPassword ? "text" : "password"}
                 id="password"
                 onChange={handleInput}

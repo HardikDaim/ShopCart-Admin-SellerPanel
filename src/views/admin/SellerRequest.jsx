@@ -96,10 +96,10 @@ const SellerRequest = () => {
                 {sellers.map((d, i) => (
                   <tr key={i}>
                     <td className="px-6 py-4 whitespace-nowrap">{i + 1}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{d.name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap capitalize">{d.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{d.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{d.payment}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{d.status}</td>
+                    <td className="px-6 py-4 whitespace-nowrap capitalize">{d.payment}</td>
+                    <td className="px-6 py-4 whitespace-nowrap capitalize">{d.status}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <Link to={`/admin/dashboard/seller/details/${d._id}`}>
                         <FaEye className="text-xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white cursor-pointer" />

@@ -13,10 +13,8 @@ import { create_paypal_connect_account } from "../../store/reducers/sellerReduce
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
-
-  const { loader, errorMessage, successMessage } = useSelector(
-    (state) => state.seller
+  const { userInfo, loader, successMessage, errorMessage } = useSelector(
+    (state) => state.auth
   );
 
   const [state, setState] = useState({
@@ -135,25 +133,45 @@ const Profile = () => {
                     {userInfo?.status}
                   </span>
                 </div>
-                <div className="flex gap-2">
-                  <span>Payment Account :</span>
-                  <p>
-                    {userInfo?.payment === "active" ? (
-                      <span className="text-green-500 dark:text-green-400 capitalize">
-                        {userInfo?.payment}{" "}
-                      </span>
-                    ) : (
-                      <span
-                        onClick={() =>
-                          dispatch(create_paypal_connect_account())
-                        }
-                        className="text-red-600 dark:text-red-500 cursor-pointer hover:underline font-semibold"
-                      >
-                        Click to Activate{" "}
-                      </span>
-                    )}
+                {userInfo?.status == "active" ? (
+                  <div className="flex gap-2">
+                    <span>Payment Account :</span>
+                    <p>
+                      {userInfo?.payment === "active" ? (
+                        <span className="text-green-500 dark:text-green-400 capitalize">
+                          {userInfo?.payment}{" "}
+                        </span>
+                      ) : (
+                        <span
+                          onClick={() =>
+                            dispatch(create_paypal_connect_account())
+                          }
+                          className="text-red-600 dark:text-red-400 cursor-pointer hover:underline font-semibold"
+                        >
+                          Click to Activate{" "}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                ) : userInfo?.status == "deactive" ? (
+                  <p className="text-slate-500 dark:text-slate-400">
+                    Your account is deactive. Contact to support if there is any
+                    mistake
                   </p>
-                </div>
+                ) : (
+                  <>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      Your seller account is currently pending. Please complete
+                      your profile and wait for admin approval. Once approved,
+                      you can activate your payment account.
+                    </p>
+                    <p className="text-slate-500 dark:text-slate-400">
+                      We'll notify you on your E-mail address whether your
+                      seller account has been activated by the seller or not
+                      make sure your E-mail address is correct.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
             <div className="px-0 md:px-5 py-2">

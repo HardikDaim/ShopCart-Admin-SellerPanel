@@ -75,6 +75,7 @@ const Register = () => {
                 id="name"
                 onChange={handleInput}
                 value={state.name}
+                placeholder="Enter Full Name"
                 required
                 className="block dark:bg-slate-800 transition duration-150 ease-in-out w-full rounded-md border-0 outline-none p-1.5 caret-blue-700 text-gray-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-700 placeholder:text-gray-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-inset focus:ring-blue-700 dark:focus:ring-blue-600 sm:text-sm sm:leading-6"
               />
@@ -94,6 +95,7 @@ const Register = () => {
                 id="email"
                 onChange={handleInput}
                 value={state.email}
+                placeholder="Enter E-Mail carefully its not editable"
                 required
                 className="block dark:bg-slate-800 transition duration-150 ease-in-out w-full rounded-md border-0 p-1.5 caret-blue-700 outline-none text-gray-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-700 placeholder:text-gray-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-inset focus:ring-blue-700 dark:focus:ring-blue-600 sm:text-sm sm:leading-6"
               />
@@ -109,6 +111,7 @@ const Register = () => {
             <div className="mt-2 relative">
               <input
                 name="password"
+                placeholder="Enter Password"
                 type={showPassword ? "text" : "password"}
                 id="password"
                 onChange={handleInput}
@@ -129,7 +132,8 @@ const Register = () => {
               type="checkbox"
               name="checkbox"
               id="checkbox"
-              className="w-4 h-3 mr-1 dark:bg-slate-700 dark:border-slate-600"
+              className="w-4 h-4 mr-1 dark:bg-slate-700 dark:border-slate-600"
+              required
             />
             <label
               htmlFor="checkbox"

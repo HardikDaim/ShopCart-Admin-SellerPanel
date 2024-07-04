@@ -46,6 +46,9 @@ export const seller_status_update = createAsyncThunk(
       const { data } = await api.post(`/seller-status-update/`, info, {
         withCredentials: true,
       });
+      await api.post('/mail/seller-status-update', info, {
+        withCredentials: true,
+      })
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response?.data);
@@ -166,7 +169,7 @@ const sellerReducer = createSlice({
       .addCase(seller_status_update.fulfilled, (state, action) => {
         state.loader = false;
         state.seller = action.payload?.seller;
-        state.successMessage = action.payload.message;
+        state.successMessage = action.payload?.message;
       })
       .addCase(seller_status_update.rejected, (state, action) => {
         state.loader = false;

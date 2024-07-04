@@ -102,6 +102,9 @@ export const add_profile_info = createAsyncThunk(
       const { data } = await api.post("/add-profile-info", info, {
         withCredentials: true,
       });
+      await api.post("/mail/seller-update-profile", info, {
+        withCredentials: true,
+      })
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response?.data);
