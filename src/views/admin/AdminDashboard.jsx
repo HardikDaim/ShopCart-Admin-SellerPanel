@@ -310,7 +310,7 @@ const AdminDashboard = () => {
                   {recentOrder.map((m, i) => (
                     <tr key={i}>
                       <td className="px-6 py-4 whitespace-nowrap">#{m._id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">{m.price.toLocaleString("en-IN")}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">₹{m.price.toLocaleString("en-IN")}</td>
                       <td className="px-6 py-4 whitespace-nowrap capitalize">
                         {m.payment_status}
                       </td>
