@@ -33,7 +33,9 @@ const Orders = () => {
     <>
       <div className="px-2 lg:px-7 py-5">
         <div className="w-full p-4 bg-slate-100 dark:bg-slate-800 border-2 dark:border-slate-600 rounded-md">
-          <h2 className="text-xl text-slate-500 dark:text-white font-semibold mb-4">Orders</h2>
+          <h2 className="text-xl text-slate-500 dark:text-white font-semibold mb-4">
+            Orders
+          </h2>
           <div>
             <Search
               setPerPage={setPerPage}
@@ -85,38 +87,48 @@ const Orders = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-slate-800 divide-y divide-slate-200 dark:divide-slate-700 text-slate-500 dark:text-slate-300">
-                  {myOrders.map((order) => (
-                    <React.Fragment key={order?._id}>
-                      <tr>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          #{order?._id}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          ₹{order?.price.toLocaleString("en-IN")}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap capitalize">
-                          {order?.payment_status}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap capitalize">
-                          {order?.delivery_status}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {order?.date}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <Link to={`/seller/dashboard/order/details/${order?._id}`}>
-                            <FaEye
-                              className="text-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer"
-                            />
-                          </Link>
-                        </td>
-                      </tr>
-                    </React.Fragment>
-                  ))}
+                  {myOrders.length > 0 ? (
+                    myOrders.map((order) => (
+                      <React.Fragment key={order?._id}>
+                        <tr>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            #{order?._id}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            ₹{order?.price.toLocaleString("en-IN")}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap capitalize">
+                            {order?.payment_status}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap capitalize">
+                            {order?.delivery_status}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {order?.date}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <Link
+                              to={`/seller/dashboard/order/details/${order?._id}`}
+                            >
+                              <FaEye className="text-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer" />
+                            </Link>
+                          </td>
+                        </tr>
+                      </React.Fragment>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="8" className="text-center py-4">
+                        No Orders Found
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             ) : (
-              <div className="text-center text-slate-500 dark:text-slate-400">No orders found.</div>
+              <div className="text-center text-slate-500 dark:text-slate-400">
+                No orders found.
+              </div>
             )}
           </div>
           {totalOrders >= perPage ? (
