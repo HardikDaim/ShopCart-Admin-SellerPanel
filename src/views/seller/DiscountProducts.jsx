@@ -1,21 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import { Link } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
 import Pagination from "../Pagignation";
+import {
+  deleteProduct,
+  get_discounted_products,
+  messageClear,
+} from "../../store/reducers/ProductReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
+import Modal from "../../components/Modal";
+import LoaderOverlay from "../../components/LoaderOverlay";
 
 const DiscountProducts = () => {
+  const dispatch = useDispatch();
+  const { loader, products, totalProducts, successMessage, errorMessage } =
+    useSelector((state) => state.product);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [perPage, setPerPage] = useState(5);
-  const [show, setShow] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    const obj = {
+      perPage: parseInt(perPage),
+      page: parseInt(currentPage),
+      searchValue,
+    };
+    dispatch(get_discounted_products(obj));
+  }, [searchValue, currentPage, perPage, dispatch]);
+
+  useEffect(() => {
+    if (successMessage) {
+      toast.success(successMessage);
+      dispatch(messageClear());
+    }
+    if (errorMessage) {
+      toast.error(errorMessage);
+      dispatch(messageClear());
+    }
+  }, [dispatch, errorMessage, successMessage]);
+
+  const delete_product = (product) => {
+    setSelectedProduct(product);
+    setDeleteModalOpen(true);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteProduct(selectedProduct));
+    setDeleteModalOpen(false);
+  };
   return (
     <>
       <div className="px-2 lg:px-7 py-5">
         <div className="w-full p-4 bg-slate-100 border-2 dark:border-slate-600 dark:bg-slate-800 rounded-md">
-          <h2 className="text-xl text-slate-500  dark:text-slate-300 dark:text-white font-semibold mb-4">
+          <h2 className="text-xl text-slate-500 dark:text-white font-semibold mb-4">
             Discount Products
           </h2>
           <div>
@@ -28,133 +71,191 @@ const DiscountProducts = () => {
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-600">
               <thead className="bg-slate-100 dark:bg-slate-900">
-                <tr>
+              <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     S.No
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-center text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Image
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-center text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Name
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Category
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Brand
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Price
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Discount
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Stock
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-bold text-slate-500  dark:text-slate-300 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider"
                   >
                     Action
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-slate-200 dark:divide-slate-600 dark:bg-slate-800 text-slate-500  dark:text-slate-300 tracking-wider font-medium">
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">1</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <img
-                      className="max-h-24 max-w-24 object-contain"
-                      src="/images/category/1.jpg"
-                    />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">Shoes</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Shoes</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Shoes</td>
-                  <td className="px-6 py-4 whitespace-nowrap">₹3,000</td>
-                  <td className="px-6 py-4 whitespace-nowrap">10%</td>
-                  <td className="px-6 py-4 whitespace-nowrap">20</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex justify-start items-center gap-4">
-                      <Link>
-                        <MdEdit className="text-2xl text-slate-500  dark:text-slate-300" />
-                      </Link>
-                      <Link>
-                        <FaEye className="text-2xl text-slate-500  dark:text-slate-300" />
-                      </Link>
-                      <Link>
-                        <RiDeleteBin6Fill className="text-2xl text-slate-500  dark:text-slate-300" />
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap">2</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <img
-                      className="md:w-40 md:h-40"
-                      src="/images/category/2.jpg"
-                    />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">Watch</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Shoes</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Shoes</td>
-                  <td className="px-6 py-4 whitespace-nowrap">₹3,000</td>
-                  <td className="px-6 py-4 whitespace-nowrap">10%</td>
-                  <td className="px-6 py-4 whitespace-nowrap">20</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex justify-start items-center gap-4">
-                      <Link>
-                        <MdEdit className="text-2xl text-slate-500  dark:text-slate-300" />
-                      </Link>
-                      <Link>
-                        <FaEye className="text-2xl text-slate-500  dark:text-slate-300" />
-                      </Link>
-                      <Link>
-                        <RiDeleteBin6Fill className="text-2xl text-slate-500  dark:text-slate-300" />
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
+              <tbody className="bg-white divide-y divide-slate-200 dark:divide-slate-600 dark:bg-slate-800 text-slate-500 dark:text-slate-300 tracking-wider font-medium">
+                {products.length > 0 ? (
+                  products.map((product, index) => (
+                    <tr key={product._id}>
+                      <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <img
+                          className="max-h-24 max-w-24 object-contain"
+                          src={product.images[0]}
+                          alt={product.name}
+                        />
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap ">{product.name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap capitalize">
+                        {product.category}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap capitalize">{product.brand}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        ₹{product.price.toLocaleString("en-IN")}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">{product.discount}%</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{product.stock}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex justify-start items-center gap-4">
+                          <Link
+                            to={`/seller/dashboard/edit-product/${product._id}`}
+                          >
+                            <MdEdit className="text-2xl text-slate-500 dark:text-slate-300" />
+                          </Link>
+                          <button
+                            onClick={() =>
+                              window.open(
+                                `https://shop-cart-ten-chi.vercel.app/product/details/${product.slug}`,
+                                "_blank"
+                              )
+                            }
+                          >
+                            <FaEye className="text-2xl text-slate-500 dark:text-slate-200" />
+                          </button>
+                          <button onClick={() => delete_product(product)}>
+                            <RiDeleteBin6Fill className="text-2xl text-slate-500 dark:text-slate-200" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="8" className="text-center py-4">
+                    No Discounted Products Found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
+          {totalProducts >= perPage ? (
             <div className="w-full flex justify-end mt-4 bottom-4 right-4">
               <Pagination
                 pageNumber={currentPage}
                 setPageNumber={setCurrentPage}
-                totalItem={50}
+                totalItem={totalProducts} // Pass totalProducts for pagination
                 perPage={perPage}
                 showItem={3}
               />
             </div>
+          ) : (
+            ""
+          )}
         </div>
+        <Modal isOpen={deleteModalOpen} setIsOpen={setDeleteModalOpen}>
+          {loader && <LoaderOverlay />}
+          {selectedProduct && (
+            <div className="flex flex-col items-center justify-center ">
+              <h1 className="text-2xl font-bold text-center dark:text-white">
+                Are you sure you want to delete this product?
+              </h1>
+              <div className="mt-4">
+                <h2 className="text-lg font-semibold dark:text-white">
+                  <strong>Product Name:</strong> {selectedProduct.name}
+                </h2>
+                <h2 className="text-lg font-semibold dark:text-white">
+                  <strong>Product Images:</strong>{" "}
+                </h2>
+                <div className="overflow-x-auto">
+                  <div className=" flex items-center gap-4 w-20 h-20 ">
+                    {selectedProduct.images.map((image, index) => (
+                      <img
+                        key={index}
+                        className="w-full h-full object-cover rounded-md "
+                        src={image}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
+                  <strong>Description:</strong> {selectedProduct.description}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                  <strong>Category:</strong> {selectedProduct.category}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                  <strong>Brand:</strong> {selectedProduct.brand}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                  <strong>Price:</strong> ₹{selectedProduct.price}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                  <strong>Stock:</strong> {selectedProduct.stock}
+                </p>
+              </div>
+              <div className="flex justify-center gap-4 mt-4">
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                  onClick={handleDelete}
+                >
+                  Confirm
+                </button>
+                <button
+                  onClick={() => setDeleteModalOpen(false)}
+                  className="bg-slate-500 text-white px-4 py-2 rounded-md hover:bg-slate-600"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </Modal>
       </div>
     </>
   );

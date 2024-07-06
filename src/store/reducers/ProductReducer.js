@@ -17,12 +17,46 @@ export const add_product = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProduct",
+  async (product, { rejectWithValue }) => {
+    try {
+      console.log(product)
+      const { data } = await api.post("/delete-product", product, {
+        withCredentials: true,
+      });
+      return data;
+    } catch (error) {
+      console.log(error.response?.data);
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
 export const get_products = createAsyncThunk(
   "product/get_products",
   async ({ perPage, page, searchValue }, { rejectWithValue }) => {
     try {
       const { data } = await api.get(
         `/get-products?page=${page}&searchValue=${searchValue}&perPage=${perPage}`,
+        {
+          withCredentials: true,
+        }
+      );
+      return data;
+    } catch (error) {
+      console.log(error.response?.data);
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export const get_discounted_products = createAsyncThunk(
+  "product/get_discounted_products",
+  async ({ perPage, page, searchValue }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get(
+        `/get-discounted-products?page=${page}&searchValue=${searchValue}&perPage=${perPage}`,
         {
           withCredentials: true,
         }
@@ -165,6 +199,37 @@ const productReducer = createSlice({
         state.products = [...state.products, action.payload.product];
       })
       .addCase(add_product.rejected, (state, action) => {
+        state.loader = false;
+        state.errorMessage = action.payload?.error;
+      })
+      // delete Product
+      .addCase(deleteProduct.pending, (state) => {
+        state.loader = true;
+        state.errorMessage = "";
+        state.successMessage = "";
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.loader = false;
+        state.successMessage = action.payload.message;
+        state.products = state.products.filter(
+          (product) => product._id !== action.payload.productId
+        );
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.loader = false;
+        state.errorMessage = action.payload?.error;
+      })
+      // Get Discounted Products
+      .addCase(get_discounted_products.pending, (state) => {
+        state.loader = true;
+        state.errorMessage = "";
+      })
+      .addCase(get_discounted_products.fulfilled, (state, action) => {
+        state.loader = false;
+        state.totalProducts = action.payload.totalProducts;
+        state.products = action.payload.products;
+      })
+      .addCase(get_discounted_products.rejected, (state, action) => {
         state.loader = false;
         state.errorMessage = action.payload?.error;
       })
