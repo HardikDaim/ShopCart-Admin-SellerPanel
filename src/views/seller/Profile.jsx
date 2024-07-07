@@ -186,7 +186,7 @@ const Profile = () => {
                     </p>
                     <p className="text-slate-500 dark:text-slate-400">
                       We'll notify you on your E-mail address whether your
-                      seller account has been activated by the seller or not
+                      seller account has been activated by the Admin or not,
                       make sure your E-mail address is correct.
                     </p>
                   </>
