@@ -6,6 +6,7 @@ import {
   profile_image_upload,
   messageClear,
   add_profile_info,
+  change_password,
 } from "../../store/reducers/authReducer";
 import LoaderOverlay from "../../components/LoaderOverlay";
 import { toast } from "react-hot-toast";
@@ -38,6 +39,29 @@ const Profile = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
+  const [changePassword, setChangePassword] = useState({
+    email: userInfo?.email || "",
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const handlePasswordInput = (e) => {
+    setChangePassword({ ...changePassword, [e.target.name]: e.target.value });
+  };
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (changePassword.newPassword !== changePassword.confirmPassword) {
+      toast.error("New Password and Confirm Password must be same");
+    } else {
+      dispatch(change_password(changePassword));
+      changePassword({
+        email: userInfo?.email || "",
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(add_profile_info(state));
@@ -70,13 +94,8 @@ const Profile = () => {
                   <img
                     src={userInfo?.image}
                     alt="Profile"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover "
                   />
-                  {loader && (
-                    <div className="absolute w-full h-full top-0 left-0 bg-white dark:bg-slate-800 opacity-70 flex justify-center items-center z-20">
-                      <FadeLoader color="#4A90E2" />
-                    </div>
-                  )}
                 </label>
               ) : (
                 <label
@@ -298,7 +317,7 @@ const Profile = () => {
           <div className="w-full md:pl-7">
             <div className="bg-slate-50 dark:bg-slate-800 rounded-md border-2 p-4 text-slate-500 dark:text-slate-300 dark:border-slate-600">
               <h2 className="font-semibold py-4 text-xl">Change Password</h2>
-              <form>
+              <form onSubmit={handlePasswordSubmit}>
                 <div className="flex flex-col w-full gap-1 mb-4">
                   <label
                     className="text-sm font-semibold text-slate-700 dark:text-slate-300"
@@ -309,6 +328,8 @@ const Profile = () => {
                   <input
                     required
                     name="email"
+                    onChange={handlePasswordInput}
+                    value={changePassword.email}
                     className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                     type="text"
                     id="email"
@@ -318,32 +339,54 @@ const Profile = () => {
                 <div className="flex flex-col w-full gap-1 mb-4">
                   <label
                     className="text-sm font-semibold text-slate-700 dark:text-slate-300"
-                    htmlFor="password"
+                    htmlFor="oldPassword"
                   >
-                    Password
+                    Old Password
                   </label>
                   <input
                     required
-                    name="password"
-                    className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
+                    value={changePassword.oldPassword}
+                    onChange={handlePasswordInput}
+                    name="oldPassword"
+                    className={`outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out`}
                     type="password"
-                    id="password"
-                    placeholder="Password"
+                    id="oldPassword"
+                    placeholder="Enter Old Password"
                   />
                 </div>
                 <div className="flex flex-col w-full gap-1 mb-4">
                   <label
                     className="text-sm font-semibold text-slate-700 dark:text-slate-300"
-                    htmlFor="conpass"
+                    htmlFor="newPassword"
                   >
-                    Confirm Password
+                    New Password
                   </label>
                   <input
                     required
-                    name="conpass"
+                    value={changePassword.newPassword}
+                    onChange={handlePasswordInput}
+                    name="newPassword"
+                    className={`outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out`}
+                    type="password"
+                    id="newPassword"
+                    placeholder="Enter New Password"
+                  />
+                </div>
+                <div className="flex flex-col w-full gap-1 mb-4">
+                  <label
+                    className="text-sm font-semibold text-slate-700 dark:text-slate-300"
+                    htmlFor="confirmPassword"
+                  >
+                    Confirm New Password
+                  </label>
+                  <input
+                    required
+                    value={changePassword.confirmPassword}
+                    onChange={handlePasswordInput}
+                    name="confirmPassword"
                     className="outline-none border-2 rounded-md shadow-md dark:focus:border-blue-600 focus:border-blue-600 dark:border-slate-600 dark:bg-slate-600 dark:text-slate-300 p-2 transition duration-150 ease-in-out"
                     type="password"
-                    id="conpass"
+                    id="confirmPassword"
                     placeholder="Confirm Password"
                   />
                 </div>

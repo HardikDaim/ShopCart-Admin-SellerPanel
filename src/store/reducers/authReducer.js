@@ -112,6 +112,20 @@ export const add_profile_info = createAsyncThunk(
   }
 );
 
+export const change_password = createAsyncThunk(
+  "auth/change_password",
+  async (info, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await api.post("/change-password", info, {
+        withCredentials: true,
+      });
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
+);
+
 const returnRole = (token) => {
   if (token) {
     const decodeToken = jwtDecode(token);
@@ -221,6 +235,7 @@ const authReducer = createSlice({
         state.loader = false;
         state.errorMessage = action.payload?.error;
       })
+      // add profile info
       .addCase(add_profile_info.pending, (state) => {
         state.loader = true;
         state.errorMessage = "";
@@ -235,6 +250,22 @@ const authReducer = createSlice({
         state.loader = false;
         state.errorMessage = action.payload?.error;
       })
+      // change seller password
+      .addCase(change_password.pending, (state) => {
+        state.loader = true;
+        state.errorMessage = "";
+        state.successMessage = "";
+      })
+      .addCase(change_password.fulfilled, (state, action) => {
+        state.loader = false;
+        state.successMessage = action.payload?.message;
+        state.userInfo = action.payload?.userInfo;
+      })
+      .addCase(change_password.rejected, (state, action) => {
+        state.loader = false;
+        state.errorMessage = action.payload?.error;
+      })
+      // logout
       .addCase(logout.pending, (state) => {
         state.loader = true;
       })
