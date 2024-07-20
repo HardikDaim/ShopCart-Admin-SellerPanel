@@ -94,6 +94,7 @@ const Profile = () => {
                   <img
                     src={userInfo?.image}
                     alt="Profile"
+                    
                     className="w-full h-full object-cover "
                   />
                 </label>
@@ -104,19 +105,15 @@ const Profile = () => {
                 >
                   <FaImages className="text-4xl text-slate-500 dark:text-slate-300 mb-2" />
                   <span className="text-lg">Upload Profile Picture</span>
-                  {loader && (
-                    <div className="absolute w-full h-full top-0 left-0 bg-white dark:bg-slate-800 opacity-70 flex justify-center items-center z-20">
-                      <FadeLoader color="#4A90E2" />
-                    </div>
-                  )}
+                  
                 </label>
               )}
               <input
-                required
                 onChange={addImage}
                 type="file"
                 className="hidden"
                 id="img"
+                required
               />
             </div>
             <div className="px-0 md:px-5 py-2">

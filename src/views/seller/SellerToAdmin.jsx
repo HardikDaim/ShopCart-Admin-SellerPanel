@@ -2,16 +2,24 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   get_seller_message,
-  messageClear,
   send_message_seller_admin,
   updateAdminMessage,
+  messageClear,
 } from "../../store/reducers/chatReducer";
 import LoaderOverlay from "../../components/LoaderOverlay";
+import { socket } from "../../utils/utils";
 
 const SellerToAdmin = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
-  const { seller_admin_message, loader, successMessage } = useSelector((state) => state.chat);
+  const {
+    loader,
+    sellers,
+    activeSeller,
+    seller_admin_message,
+    currentSeller,
+    successMessage,
+  } = useSelector((state) => state.chat);
   const [text, setText] = useState("");
   const scrollRef = useRef();
 
@@ -19,17 +27,11 @@ const SellerToAdmin = () => {
     dispatch(get_seller_message());
   }, [dispatch]);
 
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [seller_admin_message]);
-
   const send = (e) => {
     e.preventDefault();
-    if (text.trim() === "") return;
-
     const newMessage = {
       senderId: userInfo?._id,
-      receiverId: "", 
+      receiverId: "", // This is the admin's ID
       message: text,
       senderName: userInfo?.name,
     };
@@ -37,6 +39,31 @@ const SellerToAdmin = () => {
     dispatch(send_message_seller_admin(newMessage));
     setText("");
   };
+
+  useEffect(() => {
+    socket.on("received_admin_message", (msg) => {
+      dispatch(updateAdminMessage(msg));
+    });
+
+    // Clean up the socket connection when the component unmounts
+    return () => {
+      socket.off("received_admin_message");
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (successMessage) {
+      socket.emit(
+        "send_message_seller_to_admin",
+        seller_admin_message[seller_admin_message.length - 1]
+      );
+      dispatch(messageClear());
+    }
+  }, [successMessage]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [seller_admin_message]);
 
   return (
     <div className="px-2 lg:px-7 py-3">
@@ -51,9 +78,13 @@ const SellerToAdmin = () => {
                   src="/images/admin.jpg"
                   alt="Admin"
                 />
-                <div className="w-[10px] h-[10px] bg-green-500 dark:bg-green-400 rounded-full absolute right-0 bottom-0"></div>
+                {/* {activeSeller.some((c) => c.sellerId === f.fdId) && (
+                  <div className="w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0"></div>
+                )} */}
               </div>
-              <h2 className="font-semibold text-slate-800 dark:text-white">Support</h2>
+              <h2 className="font-semibold text-slate-800 dark:text-white">
+                Support
+              </h2>
             </div>
           </div>
           <div className="flex-grow overflow-y-auto bg-slate-200 dark:bg-slate-700">
@@ -62,9 +93,11 @@ const SellerToAdmin = () => {
                 seller_admin_message.map((m, i) => (
                   <div
                     key={i}
-                    ref={i === seller_admin_message.length - 1 ? scrollRef : null}
+                    ref={scrollRef}
                     className={`w-full flex ${
-                      userInfo?._id === m.senderId ? "justify-end" : "justify-start"
+                      userInfo?._id === m.senderId
+                        ? "justify-end"
+                        : "justify-start"
                     } items-center mb-2`}
                   >
                     <div className="flex items-start gap-2 max-w-full lg:max-w-[85%]">
@@ -78,8 +111,8 @@ const SellerToAdmin = () => {
                       <div
                         className={`flex justify-center items-start flex-col w-full py-1 px-2 rounded-md ${
                           userInfo?._id === m.senderId
-                            ? "bg-blue-500 text-white"
-                            : "bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-300"
+                            ? "bg-blue-600 text-white font-semibold"
+                            : "bg-slate-300 text-slate-800 font-semibold dark:bg-slate-800 dark:text-slate-300"
                         }`}
                       >
                         <span>{m?.message}</span>

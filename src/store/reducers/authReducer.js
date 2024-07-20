@@ -95,6 +95,7 @@ export const profile_image_upload = createAsyncThunk(
     }
   }
 );
+
 export const add_profile_info = createAsyncThunk(
   "auth/add_profile_info",
   async (info, { rejectWithValue, fulfillWithValue }) => {
