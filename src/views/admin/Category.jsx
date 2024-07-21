@@ -46,7 +46,17 @@ const Category = () => {
 
   const add_category = (e) => {
     e.preventDefault();
-    dispatch(addCategory(state));
+    if (!state.name) {
+      toast.error("Please Enter Category Name");
+    }
+    if (!state.image) {
+      toast.error("Please Enter Category Image");
+    }
+    if (state.name && state.image) {
+      dispatch(addCategory(state));
+      setState({ name: "", image: "" });
+      setShow(false);
+    }
   };
 
   const handleImageChange = (e) => {
@@ -85,11 +95,6 @@ const Category = () => {
     if (successMessage) {
       toast.success(successMessage);
       dispatch(messageClear());
-      setState({
-        name: "",
-        image: "",
-      });
-      setImage("");
     }
   }, [errorMessage, successMessage, dispatch]);
 

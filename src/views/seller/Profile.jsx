@@ -54,7 +54,7 @@ const Profile = () => {
       toast.error("New Password and Confirm Password must be same");
     } else {
       dispatch(change_password(changePassword));
-      changePassword({
+      setChangePassword({
         email: userInfo?.email || "",
         oldPassword: "",
         newPassword: "",
