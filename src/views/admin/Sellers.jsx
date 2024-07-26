@@ -123,7 +123,7 @@ const Sellers = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200  text-gray-500 dark:text-gray-300">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700  text-gray-500 dark:text-gray-300">
               {sellers.length > 0 ? (
                 sellers.map((seller, index) => (
                   <React.Fragment key={seller?._id}>

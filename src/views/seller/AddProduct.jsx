@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 const AddProduct = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
+  const { userInfo } = useSelector((state) => state.auth);
   const { loader, errorMessage, successMessage } = useSelector(
     (state) => state.product
   );
@@ -95,7 +96,7 @@ const AddProduct = () => {
     formData.append("price", state.price);
     formData.append("brand", state.brand);
     formData.append("stock", state.stock);
-    formData.append("shopName", "Easy Shop");
+    formData.append("shopName",userInfo.shopInfo.shopName );
     formData.append("category", category);
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i]);
