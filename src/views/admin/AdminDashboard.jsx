@@ -19,7 +19,7 @@ const AdminDashboard = () => {
     recentMessage,
   } = useSelector((state) => state.dashboard);
   const { userInfo } = useSelector((state) => state.auth);
-  
+
   useEffect(() => {
     dispatch(get_admiin_dashboard_data());
   }, [dispatch]);
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
       },
       chart: {
         background: "transparent",
-        foreColor: "#94a3b8" // Adjust this color for light theme if needed
+        foreColor: "#94a3b8", // Adjust this color for light theme if needed
       },
       dataLabels: {
         enabled: false,
@@ -150,7 +150,11 @@ const AdminDashboard = () => {
         <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600 rounded-md gap-3">
           <div className="flex flex-col justify-start items-start text-slate-800 dark:text-slate-200">
             <h2 className="text-3xl font-bold">{totalSeller}</h2>
-            <span className="text-md font-medium">Sellers</span>
+            <Link to="/admin/dashboard/sellers">
+              <span className="text-md font-medium cursor-pointer hover:underline">
+                Sellers
+              </span>
+            </Link>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-pink-400 flex justify-center items-center text-xl text-slate-800 dark:text-slate-900">
             <FaSellcast />
@@ -159,7 +163,11 @@ const AdminDashboard = () => {
         <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600 rounded-md gap-3">
           <div className="flex flex-col justify-start items-start text-slate-800 dark:text-slate-200">
             <h2 className="text-3xl font-bold">{totalOrder}</h2>
-            <span className="text-md font-medium">Orders</span>
+            <Link to="/admin/dashboard/orders">
+              <span className="text-md font-medium cursor-pointer hover:underline">
+                Orders
+              </span>
+            </Link>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-blue-400 flex justify-center items-center text-xl text-slate-800 dark:text-slate-900">
             <GrDeliver />
@@ -249,7 +257,9 @@ const AdminDashboard = () => {
                 </ol>
               ) : (
                 <div className="flex justify-center items-center">
-                  <p className="dark:text-slate-300">No Recent Seller Messages yet!!!</p>
+                  <p className="dark:text-slate-300">
+                    No Recent Seller Messages yet!!!
+                  </p>
                 </div>
               )}
             </div>
@@ -310,7 +320,9 @@ const AdminDashboard = () => {
                   {recentOrder.map((m, i) => (
                     <tr key={i}>
                       <td className="px-6 py-4 whitespace-nowrap">#{m._id}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">₹{m.price.toLocaleString("en-IN")}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        ₹{m.price.toLocaleString("en-IN")}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap capitalize">
                         {m.payment_status}
                       </td>

@@ -46,7 +46,7 @@ const SellerDashboard = () => {
       },
       chart: {
         background: "transparent",
-        foreColor: "#94a3b8" // Adjust this color for light theme if needed
+        foreColor: "#94a3b8", // Adjust this color for light theme if needed
       },
       dataLabels: {
         enabled: false,
@@ -127,7 +127,6 @@ const SellerDashboard = () => {
     },
   };
 
-
   return (
     <div className="px-2 lg:px-7 py-5 dark:bg-slate-800 bg-slate-100 dark:text-slate-100 rounded-md">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
@@ -143,7 +142,13 @@ const SellerDashboard = () => {
         <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3">
           <div className="flex flex-col justify-start items-start text-slate-800 dark:text-slate-200">
             <h2 className="text-3xl font-bold">{totalProduct}</h2>
-            <span className="text-md font-medium">Products</span>
+            <Link
+              to="/seller/dashboard/all-products"
+            >
+              <span className="text-md font-medium cursor-pointer hover:underline">
+                Products
+              </span>
+            </Link>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-indigo-400 flex justify-center items-center text-xl">
             <MdProductionQuantityLimits />
@@ -152,7 +157,9 @@ const SellerDashboard = () => {
         <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3">
           <div className="flex flex-col justify-start items-start text-slate-800 dark:text-slate-200">
             <h2 className="text-3xl font-bold">{totalOrder}</h2>
-            <span className="text-md font-medium">Orders</span>
+            <Link to="/seller/dashboard/orders">
+            <span className="text-md font-medium cursor-pointer hover:underline">Orders</span>
+            </Link>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-pink-400 flex justify-center items-center text-xl">
             <GrDeliver />
@@ -182,7 +189,9 @@ const SellerDashboard = () => {
         <div className="w-full lg:w-5/12 lg:pl-3 pt-3 lg:pt-0">
           <div className="w-full rounded-md p-4 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  text-slate-800 dark:text-slate-200">
             <div className="flex justify-between items-center">
-              <h2 className="font-semibold text-lg pb-3">Recent Customer Message</h2>
+              <h2 className="font-semibold text-lg pb-3">
+                Recent Customer Message
+              </h2>
               <Link
                 to="/seller/dashboard/chat-customer"
                 className="font-semibold text-sm hover:underline"
@@ -285,10 +294,10 @@ const SellerDashboard = () => {
                 <tbody className="bg-white dark:bg-slate-700 divide-y divide-slate-200 dark:text-slate-300 tracking-wider font-medium">
                   {recentOrder.map((m, i) => (
                     <tr key={i}>
+                      <td className="px-6 py-4 whitespace-nowrap">#{m._id}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        #{m._id}
+                        ₹{m.price.toLocaleString("en-IN")}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">₹{m.price.toLocaleString("en-IN")}</td>
                       <td className="px-6 py-4 whitespace-nowrap capitalize">
                         {m.payment_status}
                       </td>
@@ -296,7 +305,9 @@ const SellerDashboard = () => {
                         {m.delivery_status}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-blue-700 dark:text-blue-300 hover:underline ">
-                        <Link to={`/seller/dashboard/order/details/${m._id}`}>View</Link>
+                        <Link to={`/seller/dashboard/order/details/${m._id}`}>
+                          View
+                        </Link>
                       </td>
                     </tr>
                   ))}
