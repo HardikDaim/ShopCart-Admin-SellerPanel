@@ -133,18 +133,19 @@ const SellerDashboard = () => {
         <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600 rounded-md gap-3">
           <div className="flex flex-col justify-start items-start text-slate-800 dark:text-slate-200">
             <h2 className="text-3xl font-bold">₹{totalSale}</h2>
-            <span className="text-md font-medium">Total Sales</span>
+            <span className="text-md font-medium cursor-pointer hover:underline">Total Sales</span>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-yellow-400 flex justify-center items-center text-xl">
             <MdCurrencyRupee />
           </div>
         </div>
-        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3">
+        <Link
+          to="/seller/dashboard/all-products"
+          className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3"
+        >
           <div className="flex flex-col justify-start items-start text-slate-800 dark:text-slate-200">
             <h2 className="text-3xl font-bold">{totalProduct}</h2>
-            <Link
-              to="/seller/dashboard/all-products"
-            >
+            <Link to="/seller/dashboard/all-products">
               <span className="text-md font-medium cursor-pointer hover:underline">
                 Products
               </span>
@@ -153,27 +154,39 @@ const SellerDashboard = () => {
           <div className="w-[40px] h-[47px] rounded-full bg-indigo-400 flex justify-center items-center text-xl">
             <MdProductionQuantityLimits />
           </div>
-        </div>
-        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3">
+        </Link>
+        <Link
+          to="/seller/dashboard/orders"
+          className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3"
+        >
           <div className="flex flex-col justify-start items-start text-slate-800 dark:text-slate-200">
             <h2 className="text-3xl font-bold">{totalOrder}</h2>
             <Link to="/seller/dashboard/orders">
-            <span className="text-md font-medium cursor-pointer hover:underline">Orders</span>
+              <span className="text-md font-medium cursor-pointer hover:underline">
+                Orders
+              </span>
             </Link>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-pink-400 flex justify-center items-center text-xl">
             <GrDeliver />
           </div>
-        </div>
-        <div className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3">
+        </Link>
+        <Link
+          to="/seller/dashboard/orders"
+          className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-700 border-2 dark:border-slate-600  rounded-md gap-3"
+        >
           <div className="flex flex-col justify-start items-start text-slate-800 dark:text-slate-200">
             <h2 className="text-3xl font-bold">{totalPendingOrder}</h2>
-            <span className="text-md font-medium">Pending Orders</span>
+            <Link to="/seller/dashboard/orders">
+              <span className="text-md font-medium cursor-pointer hover:underline">
+                Pending Orders
+              </span>
+            </Link>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-blue-400 flex justify-center items-center text-xl">
             <MdOutlinePendingActions />
           </div>
-        </div>
+        </Link>
       </div>
       <div className="w-full flex flex-wrap my-7">
         <div className="w-full lg:w-7/12 lg:pr-3 pb-3 lg:pb-0">
